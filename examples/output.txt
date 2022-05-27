@@ -1,0 +1,443 @@
+Today's modern companies are built on data, which now resides across countless cloud apps. Therefore preventing data loss is essential to your success. This is especially critical for mitigating against rising ransomware attacks  a threat that 
+57% of security leaders expect to be compromised by within the next year . 
+As organizations continue to evolve, in turn so does ransomware . To help you stay ahead, Lookout Chief Strategy Officer, Aaron Cockerill met with Microsoft Chief Security Advisor, Sarah Armstrong-Smith to discuss how remote work and the cloud have made it more difficult to spot a ransomware attack, as well as how deploying behavioral-anomaly-based detection can help mitigate ransomware risk. 
+Access the full interview . 
+Aaron Cockerill: I feel like the way modern enterprises operate, which includes a combination of technologies, has allowed the ransomware to thrive. Having experienced this type of attack in my past roles, I know how many CISOs are feeling out there. The human instinct is to pay the ransom. What trends are you seeing?
+Sarah Armstrong-Smith: It's quite interesting to think about how ransomware has evolved. We think about these attacks as being really sophisticated. The reality is that attackers favor the tried and tested: they favor credential theft, password spray, they're scanning the network, buying credentials off the dark web, using ransomware kits. 
+So in many ways, things haven't changed. They are looking for any way into your network. So although we talk about cyber attacks becoming sophisticated, that initial point of entry really isn't what sets the ransomware operators apart, it's what happens next. 
+It's down to that persistence and patience. The growing trend is that attackers understand IT infrastructure really well. For example, lots of companies are running Windows or Linux machines or have entities on-premises. They might also be utilizing cloud services or cloud platforms or different endpoints. Attackers understand all that. So they can develop malware that follows those IT infrastructure patterns. And in essence, that's where they're evolving, they're getting wise to our defenses. 
+Aaron: 
+One evolution we've witnessed is the theft of data and then threatening to make it public. Are you seeing the same thing?
+Sarah : Yeah, absolutely. We call that double extortion. So part of the initial extortion could be about the encryption of your network and trying to get a decryption key back. The second part of the extortion is really about you having to pay another amount of money to try and get your data back or for it not to be released. You should assume that your data is gone. It's very likely that it's already been sold and is already on the dark web. 
+Aaron: 
+What do you think are some of the common myths associated with ransomware?
+Sarah: 
+There's a misconception that if you pay the ransom, you're going to get your services back quicker. The reality is quite different. 
+We have to assume that ransomware operators see this as an enterprise. And, of course, the expectation is that if you pay the ransom, you're going to receive a decryption key. The reality is that only 65% of organizations actually get their data back. And it's not a magic wand. 
+Even if you were to receive a decryption key, they're quite buggy. And it's certainly not going to open everything up. Often, you still have to go through file by file and it's incredibly laborious. A lot of those files are potentially going to get corrupted. It's also more likely that those large, critical files that you rely on are the ones you won't be able to decrypt. 
+Aaron: Why is ransomware still affecting companies so badly? It seems like we've been talking about methods attackers use to deliver these attacks, such as phishing and business email compromise, as well as preventing data exfiltration and patching servers forever? Why is ransomware still such a big problem? And what can we do to prevent it?
+Sarah : Ransomware is run as an enterprise. The more people pay, the more threat actors are going to do ransoms. I think that's the challenge. As long as someone somewhere is going to pay, there is a return on investment for the attacker. 
+Now the difference is, how much time and patience does the attacker have. Particularly some of the larger ones, they will have persistence, and they have the willingness and desire to carry on moving through the network. They're more likely to use scripting, different malware, and they're looking for that elevation of privilege so they can exfiltrate data. They're going to stay in your network longer. 
+But the common flaw, if you like, is that the attacker is counting on no one watching. We know that sometimes attackers stay in the network for months. So at the point where the network's been encrypted, or data exfiltrated, it's too late for you. The actual incident started weeks, months or however long ago. 
+That's because they're learning our defenses: "will anyone notice if I elevate privilege, if I start to exfiltrate some data? And assuming I do get noticed, can anyone even respond in time?" These attackers have done their homework, and at the point where they are asking for some kind of extortion or demand, they've done a huge amount of activity. For bigger ransomware operators, there is a return on investment. So they're willing to put the time and effort in because they think they're going to get that back.
+Aaron: 
+There's an interesting article written by Gartner on how to detect and prevent ransomware. It says the best point to detect attacks is in the lateral movement stage, where an attacker is looking for exploits to pivot from or more valuable assets to steal.
+I think that that's one of the most fundamental challenges that we have. We know what to do to mitigate the risk of phishing  although that's always going to be an issue because there's a human element to it. But once they get that initial access, get an RDP (Remote Desktop Protocol), or credentials for the server or whatever it is, and then they can start that lateral movement. What do we do to detect that? Sounds like that's the biggest opportunity for detection.
+Listen to the full interview to hear Sarah's thoughts on the best way to detect a ransomware attack. 
+The first step to securing data is knowing what's going on. It's hard to see the risks you're up against when your users are everywhere and using networks and devices you don't control to access sensitive data in the cloud.
+Eliminates the guesswork by gaining visibility into what's happening, on both unmanaged and managed endpoints, in the cloud and everywhere in between. 
+Contact Lookout today .
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE 
+Malware , ransomware
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+Quanta Cloud Technology (QCT) servers have been identified as vulnerable to the severe "Pantsdown" Baseboard Management Controller (BMC) flaw, according to new research published today. "An attacker running code on a vulnerable QCT server would be able to 'hop' from the server host to the BMC and move their attacks to the server management network, possibly continue and obtain further permissions to other BMCs on the network and by doing that gaining access to other servers," firmware and hardware security firm Eclypsium said .
+A baseboard management controller is a specialized system used for remote monitoring and management of servers, including controlling low-level hardware settings as well as installing firmware and software updates.
+Tracked as 
+CVE-2019-6260 (CVSS score: 9.8), the critical security flaw came to light in January 2019 and relates to a case of arbitrary read and write access to the BMC's physical address space, resulting in arbitrary code execution.
+Successful exploitation of the vulnerability can provide a threat actor with full control over the server, making it possible to overwrite the BMC firmware with malicious code, deploy persistent malware, exfiltrate data, and even brick the system.
+Impacted QCT server models include D52BQ-2U, D52BQ-2U 3UPI, D52BV-2U, which come with BMC version 4.55.00 that runs a version of BMC software vulnerable to Pantsdown. Following responsible disclosure on October 7, 2021, a patch has been made privately available to customers on April 15.
+The fact that a three-year-old weakness still continues to exist underscores the need to fortify firmware-level code by applying updates in a timely fashion and regularly scanning the firmware for potential indicators of compromise.
+Firmware security is particularly crucial in light of the fact that components like BMC have emerged as a lucrative target of cyberattacks aimed at planting stealthy malware such as iLOBleed that's designed to completely wipe a victim server's disks.
+To mitigate such risks, it's reminded that organizations relying on QCT products should verify the integrity of their BMC firmware and update the component to the latest version as and when the fixes become available. "Adversaries are getting increasingly comfortable wielding firmware-level attacks," the company said. "What is important to note is how knowledge of firmware-level exploits has increased over the years: what was difficult in 2019 is almost trivial today."
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE cloud technology , 
+Eclypsium , 
+QCT Server
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+Details have emerged about a recently patched critical remote code execution vulnerability in the V8 JavaScript and WebAssembly engine used in Google Chrome and Chromium-based browsers.
+The issue relates to a case of use-after-free in the instruction optimization component, successful exploitation of which could "allow an attacker to execute arbitrary code in the context of the browser."
+The flaw, which was identified in the Dev channel version of Chrome 101, was reported to Google by Weibo Wang, a security researcher at Singapore cybersecurity company 
+Numen Cyber Technology and has since been quietly fixed by the company. "This vulnerability occurs in the instruction selection stage, where the wrong instruction has been selected and resulting in memory access exception," 
+Wang said .
+Use-after-free flaws occur when previous-freed memory is accessed, inducing undefined behavior and causing a program to crash, use corrupted data, or even achieve execution of arbitrary code.
+What is more concerning is that the flaw can be exploited remotely via a specially designed website to bypass security restrictions and run arbitrary code to compromise the targeted systems. "This vulnerability can be further exploited using heap spraying techniques, and then leads to 'type confusion' vulnerability," Wang explained. "The vulnerability allows an attacker to control the function pointers or write code into arbitrary locations in memory, and ultimately lead to code execution."
+The company has not yet disclosed the vulnerability via the 
+Chromium bug tracker portal to give as many users as possible to install the patched version first. Also, Google does not assign CVE IDs for vulnerabilities found in non-stable Chrome channels.
+Chrome users, especially developers who use the Dev edition of Chrome for testing to ensure that their applications are compatible with the latest Chrome features and API changes, should update to the latest available version of the software.
+TurboFan assembly instructions after vulnerability patched
+This is not the first time use-after-free vulnerabilities have been discovered in V8. Google in 2021 addressed seven such bugs in Chrome that have been exploited in real-world attacks. This year, it also fixed an actively exploited use-after-free vulnerability in the Animation component.
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE 
+Chrome , hacking news , 
+Vulnerability , zero day vulnerability
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+Cloud-based repository hosting service GitHub on Friday shared additional details into the theft of GitHub integration OAuth tokens last month, noting that the attacker was able to access internal NPM data and its customer information. "Using stolen OAuth user tokens originating from two third-party integrators, Heroku and Travis CI, the attacker was able to escalate access to NPM infrastructure," Greg Ose said , adding the attacker then managed to obtain a number of files -
+A database backup of skimdb.npmjs.com consisting of data as of April 7, 2021, including an archive of user information from 2015 and all private NPM package manifests and package metadata. The archive contained NPM usernames, password hashes, and email addresses for roughly 100,000 users
+A set of CSV files encompassing an archive of all names and version numbers of published versions of all NPM private packages as of April 10, 2022, and 
+A "small subset" of private packages from two organizations
+As a consequence, GitHub is taking the step of resetting the passwords of impacted users. It's also expected to directly notify users with exposed private package manifests, metadata, and private package names and versions over the next couple of days.
+The attack chain, as detailed by GitHub, involved the attacker abusing the OAuth tokens to exfiltrate private NPM repositories containing AWS access keys, and subsequently leveraging them to gain unauthorized access to the registry's infrastructure.
+That said, none of the packages published to the registry are believed to have been modified by the adversary nor were any new versions of existing packages uploaded to the repository.
+Additionally, the company said the investigation into the OAuth token attack revealed an unrelated issue that involved the discovery of an unspecified "number of plaintext user credentials for the npm registry that were captured in internal logs following the integration of npm into GitHub logging systems."
+GitHub noted that it mitigated the problem prior to the discovery of the attack campaign and that it had purged the logs containing the plaintext credentials.
+The OAuth theft, which GitHub uncovered on April 12, concerned an unidentified actor taking advantage of stolen OAuth user tokens issued to two third-party OAuth integrators, Heroku and Travis-CI, to download data from dozens of organizations, including NPM.
+The Microsoft-owned subsidiary, earlier this month, called the campaign "highly targeted" in nature, adding "the attacker was only listing organizations in order to identify accounts to selectively target for listing and downloading private repositories."
+Heroku has since acknowledged that the theft of GitHub integration OAuth tokens further involved unauthorized access to an internal customer database, prompting the company to reset all user passwords.
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE 
+GitHub , npm repository , 
+OAuth
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+A malvertising threat is witnessing a new surge in activity since its emergence earlier this year.
+Dubbed 
+ChromeLoader , the malware is a "pervasive and persistent browser hijacker that modifies its victims' browser settings and redirects user traffic to advertisement websites," Aedan Russell of Red Canary said in a new report.
+ChromeLoader is a rogue Chrome browser extension and is typically distributed in the form of ISO files via pay-per-install sites and baited social media posts that advertise QR codes to cracked video games and pirated movies.
+While it primarily functions by hijacking user search queries to Google, Yahoo, and Bing and redirecting traffic to an advertising site, it's also notable for its use of PowerShell to inject itself into the browser and get the extension added.
+The malware, also known as Choziosi Loader, was first documented by G DATA earlier this February. "For now the only purpose is getting revenue via unsolicited advertisements and search engine hijacking," G DATA's Karsten Hahn said . "But loaders often do not stick to one payload in the long run and malware authors improve their projects over time."
+Another trick up ChromeLoader's sleeve is its ability to redirect victims away from the Chrome extensions page ("chrome://extensions") should they attempt to remove the add-on.
+Furthermore, researchers have detected a macOS version of the malware that works against both Chrome and Safari browsers, effectively turning ChromeLoader into a cross-platform threat. "If applied to a higher-impact threat  such as a credential harvester or spyware  this PowerShell behavior could help malware gain an initial foothold and go undetected before performing more overtly malicious activity, like exfiltrating data from a user's browser sessions," Russell noted.
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE chrome browser , hacking news , 
+Malware
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+Zyxel has released patches to address four security flaws affecting its firewall, AP Controller, and AP products to execute arbitrary operating system commands and steal select information.
+The list of security vulnerabilities is as follows -
+CVE-2022-0734 - A cross-site scripting (XSS) vulnerability in some firewall versions that could be exploited to access information stored in the user's browser, such as cookies or session tokens, via a malicious script.
+CVE-2022-26531 - Several input validation flaws in command line interface (CLI) commands for some versions of firewall, AP controller, and AP devices that could be exploited to cause a system crash.
+CVE-2022-26532 - A command injection vulnerability in the " packet-trace " CLI command for some versions of firewall, AP controller, and AP devices that could lead to execution of arbitrary OS commands.
+CVE-2022-0910 - An authentication bypass vulnerability affecting select firewall versions that could permit an attacker to downgrade from two-factor authentication to one-factor authentication via an IPsec VPN client.
+While Zyxel has published software patches for firewalls and AP devices, hotfix for AP controllers affected by CVE-2022-26531 and CVE-2022-26532 can be obtained only by contacting the respective local Zyxel support teams.
+The development comes as a critical command injection flaw in select versions of Zyxel firewalls (
+CVE-2022-30525 , CVSS score: 9.8) has come under active exploitation, prompting the U.S. Cybersecurity and Infrastructure Security Agency to add the bug to its Known Exploited Vulnerabilities Catalog.
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE 
+Firewall , hacking news , 
+ZyXEL
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+
+Researchers have demonstrated what they call the "first active contactless attack against capacitive touchscreens."
+GhostTouch , as it's called, "uses electromagnetic interference (EMI) to inject fake touch points into a touchscreen without the need to physically touch it," a group of academics from Zhejiang University and Technical University of Darmstadt said in a new research paper.
+The core idea is to take advantage of the electromagnetic signals to execute basic touch events such as taps and swipes into targeted locations of the touchscreen with the goal of taking over remote control and manipulating the underlying device.
+The attack, which works from a distance of up to 40mm, hinges on the fact that capacitive touchscreens are sensitive to EMI, leveraging it to inject electromagnetic signals into transparent electrodes that are built into the touchscreen so as to register them as touch events.
+The experimental setup involves an electrostatic gun to generate a strong pulse signal that's then sent to an antenna to transmit an electromagnetic field to the phone's touchscreen, thereby causing the electrodes  which act as antennas themselves  to pick up the EMI.
+This can be further fine-tuned by tweaking the signal and the antenna to induce a variety of touch behaviors, such as press and hold and swipe to select, depending on the device model targeted.
+In a real-world scenario, this could play out in different ways, including swiping up to unlock a phone, connecting to a rogue Wi-Fi network, stealthily clicking on a malicious link containing malware, and even answering a phone call on the victim's behalf. "In places like a cafe, library, meeting room, or conference lobbies, people might place their smartphone face-down on the table," the researchers said. "An attacker may embed the attack equipment under the table and launch attacks remotely."
+As many as nine different smartphone models have been found vulnerable to GhostTouch, including Galaxy A10s, Huawei P30 Lite, Honor View 10, Galaxy S20 FE 5G, Nexus 5X, Redmi Note 9S, Nokia 7.2, Redmi 8, and an iPhone SE (2020), the latter of which was used to establish a malicious Bluetooth connection.
+To counteract the threat, the researchers recommend adding electromagnetic shielding to block EMI, improving the detection algorithm of the touchscreen, and prompting users to enter the phone's PIN or verify their faces or fingerprints prior to executing high-risk actions. "GhostTouch controls and shapes the near-field electromagnetic signal, and injects touch events into the targeted area on the touchscreen, without the need for physical touch or access to the victim's device," the researchers said.
+Found this article interesting? Follow THN on 
+Facebook , 
+Twitter  and 
+LinkedIn to read more exclusive content we post.
+SHARE
+Share
+Tweet
+Share
+Share
+Share on Facebook
+Share on Twitter
+Share on Linkedin
+Share on Reddit
+Share on Hacker News
+Share on Email
+Share on WhatsApp
+Share on Telegram
+Comments
+SHARE 
+Electromagnetic , hacking news , mobile security , 
+Phone Security , touch screen
+Popular This Week
+Lumos System Can Find Hidden Cameras and IoT Devices in Your Airbnb or Hotel Room
+New Unpatched Bug Could Let Attackers Steal Money from PayPal Users
+Cisco Issues Patch for New IOS XR Zero-Day Vulnerability Exploited in the Wild
+New Zoom Flaws Could Let Attackers Hack Victims Just by Sending them a Message
+Researchers Find Backdoor in School Management Plugin for WordPress
+Experts Warn of Rise in ChromeLoader Malware Hijacking Users' Browsers
+Comments
+Latest Stories
+Other Stories
+Make software security a priority in 2022
+Learn more about how security-aware developers represent a vast and largely untapped resource that can support cyber defenses.
+Uncover the secure developer inside every coder
+Empower developers to deliver secure coding that is intrinsic to their daily process.
+Java Spring Framework 0-Day Bug Threatens Enterprise Security
+Maintainers of Spring Framework have released an emergency patch to address RCE flaw.
+Learn Hacking Skills with 9 Python Courses
+Get this video training with lifetime access today for just $39!
+Online Courses and Software
+A to Z Cybersecurity Certification Training
+Get Paid to Hack Computer Networks When You Become a Certified Ethical Hacker.
+CompTIA Campus Premium
+One-Stop-Shop for All CompTIA Certifications! Get 1-Yr Access to Courses, Live Hands-On Labs, Practice Exams and Updated Content
+Network, Security and Ethical Hacking
+Your 28-Hour Roadmap as an Ultimate Security Professional  Master Network Monitoring, PenTesting, and Routing Techniques and Vulnerabilities
+Complete Linux Certification Training
+Know Your Way Around Networks and Client-Server Linux Systems  Techniques, Command Line, Shell Scripting, and More
+Cybersecurity Newsletter  Stay Informed
+Sign up for cybersecurity newsletter and get latest news updates delivered straight to your inbox daily.
+

@@ -1,0 +1,7 @@
+https://thehackernews.com/2022/05/the-myths-of-ransomware-attacks-and-how.html
+https://thehackernews.com/2022/05/critical-pantsdown-bmc-vulnerability.html
+https://thehackernews.com/2022/05/experts-detail-new-rce-vulnerability.html
+https://thehackernews.com/2022/05/nearly-100000-npm-users-credentials.html
+https://thehackernews.com/2022/05/experts-warn-of-rise-in-chromeloader.html
+https://thehackernews.com/2022/05/zyxel-issues-patches-for-4-new-flaws.html
+https://thehackernews.com/2022/05/attackers-can-use-electromagnetic.html
