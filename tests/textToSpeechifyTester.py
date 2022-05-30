@@ -29,7 +29,7 @@ def downloadUrl(url):
         cout("info",f"Downloading {url}.")
 
         try:
-            cmd = check_call(["wget", f"-O", f"{blob}", f"{url}"])
+            cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
         except:
             FAILED_DOWNLOADS.append(url)
         else:

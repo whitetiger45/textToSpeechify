@@ -1,0 +1,94 @@
+ironlion23@h311sD00r:~/Autinity/Classroom/sandbox/textToSpeechify/tests$ python textToSpeechifyTester.py 
+[*] Running.
+[*] Reading urlFeed.TESTS.txt.
+[!] textToSpeechify does not currently support dynamic creation of html files from pdfs.
+[!] These files have been filtered from your urlFeed: ['https://www.crowdstrike.com/wp-content/uploads/2022/05/crowdstrike-iceapple-a-novel-internet-information-services-post-exploitation-framework.pdf', 'https://www2.fireeye.com/rs/848-DID-242/images/rpt_APT37.pdf', 'https://www.mandiant.com/sites/default/files/2021-09/APT28-Center-of-Storm-2017.pdf', 'https://www.mandiant.com/sites/default/files/2021-09/rpt-china-chopper.pdf', 'https://www.mandiant.com/sites/default/files/2021-09/rpt-dll-sideloading.pdf'].
+[*] Downloading https://www.crowdstrike.com/cybersecurity-101/indicators-of-compromise/ioa-vs-ioc/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 44313    0 44313    0     0   139k      0 --:--:-- --:--:-- --:--:--  138k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/blog/falcon-enhances-fileless-attack-detection-with-accelerated-memory-scanning/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 54919    0 54919    0     0   225k      0 --:--:-- --:--:-- --:--:--  225k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://thehackernews.com/2022/05/malware-analysis-trickbot.html.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  152k  100  152k    0     0   792k      0 --:--:-- --:--:-- --:--:--  792k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.microsoft.com/security/blog/2022/05/19/rise-in-xorddos-a-deeper-look-at-the-stealthy-ddos-malware-targeting-linux-devices/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  213k    0  213k    0     0   235k      0 --:--:-- --:--:-- --:--:--  235k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/blog/tech-center/get-access-falcon-apis/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 42077    0 42077    0     0   180k      0 --:--:-- --:--:-- --:--:--  179k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/cybersecurity-101/endpoint-security/endpoint-detection-and-response-edr/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 49911    0 49911    0     0   166k      0 --:--:-- --:--:-- --:--:--  166k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.microsoft.com/security/blog/2022/05/27/android-apps-with-millions-of-downloads-exposed-to-high-severity-vulnerabilities/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  180k    0  180k    0     0   249k      0 --:--:-- --:--:-- --:--:--  249k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.fireeye.com/current-threats/threat-intelligence-reports.html.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 92483    0 92483    0     0   138k      0 --:--:-- --:--:-- --:--:--  138k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/blog/tech-center/consume-ioc-and-threat-feeds/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 47496    0 47496    0     0   236k      0 --:--:-- --:--:-- --:--:--  236k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.cynet.com/endpoint-protection-and-edr/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  153k    0  153k    0     0   669k      0 --:--:-- --:--:-- --:--:--  669k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/blog/understanding-indicators-attack-ioas-power-event-stream-processing-crowdstrike-falcon/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 45723    0 45723    0     0   258k      0 --:--:-- --:--:-- --:--:--  258k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/cybersecurity-101/endpoint-security/epp-vs-edr/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 45085    0 45085    0     0   186k      0 --:--:-- --:--:-- --:--:--  185k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/blog/tech-center/custom-ioas/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 43608    0 43608    0     0   219k      0 --:--:-- --:--:-- --:--:--  219k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/cybersecurity-101/endpoint-security/edr-vs-mdr-vs-xdr/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 47836    0 47836    0     0   265k      0 --:--:-- --:--:-- --:--:--  265k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.trendmicro.com/en_us/research/21/h/chaos-ransomware-a-dangerous-proof-of-concept.html.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 98527    0 98527    0     0   146k      0 --:--:-- --:--:-- --:--:--  146k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://www.crowdstrike.com/cybersecurity-101/endpoint-security/.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 54030    0 54030    0     0   296k      0 --:--:-- --:--:-- --:--:--  298k
+[*] Dispatching textToSpeechify.
+[*] Downloading https://thehackernews.com/2022/05/updateagent-returns-with-new-macos.html.
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  147k  100  147k    0     0   299k      0 --:--:-- --:--:-- --:--:--  298k
+[*] Dispatching textToSpeechify.
+[*] Results:
+[*] # of Urls Tested: 17
+[*] # of Passes: 17
+[*] # of Failures: 0

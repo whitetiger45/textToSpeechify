@@ -28,7 +28,7 @@ def downloadUrl(url):
     cout("info",f"Downloading {url}.")
 
     try:
-        cmd = check_call(["wget", f"-O", f"{blob}", f"{url}"])
+        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
     except:
         cout("error",f"{traceback.format_exc()}")
     else:

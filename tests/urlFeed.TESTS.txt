@@ -18,3 +18,7 @@ https://www.crowdstrike.com/blog/tech-center/consume-ioc-and-threat-feeds/
 https://www.crowdstrike.com/cybersecurity-101/endpoint-security/endpoint-detection-and-response-edr/
 https://thehackernews.com/2022/05/malware-analysis-trickbot.html
 https://www.trendmicro.com/en_us/research/21/h/chaos-ransomware-a-dangerous-proof-of-concept.html
+https://www.microsoft.com/security/blog/2022/05/27/android-apps-with-millions-of-downloads-exposed-to-high-severity-vulnerabilities/
+https://www.microsoft.com/security/blog/2022/05/19/rise-in-xorddos-a-deeper-look-at-the-stealthy-ddos-malware-targeting-linux-devices/
+https://doublepulsar.com/follina-a-microsoft-office-code-execution-vulnerability-1a47fce5629e
+https://www.huntress.com/blog/microsoft-office-remote-code-execution-follina-msdt-bug

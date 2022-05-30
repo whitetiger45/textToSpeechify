@@ -13,7 +13,7 @@ from collections import deque
 from pathlib import Path
 
 name = "textToSpeechify"
-version = "1.1.4"
+version = "1.1.5"
 USAGE = -1
 SUCCESS = 0
 NOT_SERIOUS = 3
@@ -208,7 +208,7 @@ def saveParsedFile(state):
         with open(out_file, "a") as fd:
             for idx in range(0,len(state)-1):
                 if(
-                    state[idx+1][0].islower() or
+                    state[idx][-1] == " " or
                     state[idx+1][0] == " " or
                     state[idx+1][0] in string.punctuation
                 ):

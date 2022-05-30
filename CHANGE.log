@@ -1,5 +1,16 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 1.1.5
+Date: 2022.05.30
+
+Changes:
+    2022.05.28:
+        - add additional url(s) to urlFeed.TESTS.txt
+        - refactor downloadUrls to use curl instead of wget
+        - add testResults.txt
+        - change first conditional in saveParsedFile to 'state[idx][-1] == " "' from 'state[idx+1][0].islower()'
+
+-------------------------
 Release: 1.1.4
 Date: 2022.05.27
 
