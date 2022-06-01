@@ -54,7 +54,7 @@ def main(in_file):
         cout("info",f"Reading {in_file}.")
         with open(in_file,"r") as fd:
             urls = [ url.strip() for url in fd.readlines() ]
-        cout("success","# of urls read: {len(urls)}.")
+        cout("success",f"# of urls read: {len(urls)}.")
 
         # filter out pdfs for now until we can build in support for dynamic calls to
         # pdftothml

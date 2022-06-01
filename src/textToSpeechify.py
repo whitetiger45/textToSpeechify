@@ -13,7 +13,7 @@ from collections import deque
 from pathlib import Path
 
 name = "textToSpeechify"
-version = "1.1.5"
+version = "1.1.6"
 USAGE = -1
 SUCCESS = 0
 NOT_SERIOUS = 3

@@ -1,5 +1,14 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 1.1.6
+Date: 2022.06.01
+
+Changes:
+    2022.05.31:
+        - add additional url(s) to urlFeed.TESTS.txt
+        - fix format string bug in textToSpeechifyDispatcher
+
+-------------------------
 Release: 1.1.5
 Date: 2022.05.30
 

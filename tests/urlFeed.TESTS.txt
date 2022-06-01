@@ -22,3 +22,10 @@ https://www.microsoft.com/security/blog/2022/05/27/android-apps-with-millions-of
 https://www.microsoft.com/security/blog/2022/05/19/rise-in-xorddos-a-deeper-look-at-the-stealthy-ddos-malware-targeting-linux-devices/
 https://doublepulsar.com/follina-a-microsoft-office-code-execution-vulnerability-1a47fce5629e
 https://www.huntress.com/blog/microsoft-office-remote-code-execution-follina-msdt-bug
+https://benjamin-altpeter.de/shell-openexternal-dangers/
+https://www.huntress.com/blog/cybersecurity-advisory-hackers-are-exploiting-cve-2021-40444
+https://www.huntress.com/blog/snakes-on-a-domain-an-analysis-of-a-python-malware-loader
+https://www.mandiant.com/resources/targeted-attack-lifecycle
+https://www.mandiant.com/resources/apt-groups
+https://www.mandiant.com/resources/cti-analyst-core-competencies-framework
+https://www.mandiant.com/resources/information-operations-surrounding-ukraine
