@@ -1,5 +1,18 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 1.1.6.1
+Date: 2022.06.06
+
+Changes:
+    2022.06.06:
+        - updated downloadUrl and main in todaysHackerNews.py
+        - added grepStories and sites dictionary in todaysHackerNews.py
+    2022.06.03:
+        - add stripReference function and wikipedia articles to urlFeed.TESTS.txt
+    2022.06.02:
+        - append urlFeed.TESTS.txt
+
+-------------------------
 Release: 1.1.6
 Date: 2022.06.01
 

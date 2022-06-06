@@ -13,7 +13,7 @@ from collections import deque
 from pathlib import Path
 
 name = "textToSpeechify"
-version = "1.1.6"
+version = "1.1.6.1"
 USAGE = -1
 SUCCESS = 0
 NOT_SERIOUS = 3
@@ -66,6 +66,7 @@ findTagsInline = lambda line: re.finditer("><",line)
 findTags = lambda line: re.finditer("<([\S]+).*?>(.*?)</.*?>|<([0-9a-zA-Z]+).*?>(.*?)",line)
 stripTagL = lambda line: re.match("</*([0-9a-zA-Z]+).*?>(.+)",line)
 stripPDFToHTMLTagL = lambda line: re.match("</*[0-9a-zA-Z]+.*?>(.+)",line)
+stripReference = lambda line: re.match("\[[0-9]+\]", line)
 # list(map((lambda l: [m.groups() for m in findTags(l)]),lines)) # helper for debugging
 
 # strip html encoding

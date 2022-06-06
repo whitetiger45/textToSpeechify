@@ -29,3 +29,6 @@ https://www.mandiant.com/resources/targeted-attack-lifecycle
 https://www.mandiant.com/resources/apt-groups
 https://www.mandiant.com/resources/cti-analyst-core-competencies-framework
 https://www.mandiant.com/resources/information-operations-surrounding-ukraine
+https://thehackernews.com/2022/06/threat-detection-software-deep-dive.html
+https://en.wikipedia.org/wiki/Stuxnet
+https://www.crowdstrike.com/cybersecurity-101/endpoint-security/edr-vs-ngav/

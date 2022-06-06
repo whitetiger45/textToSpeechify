@@ -9,12 +9,14 @@
 #   this is a stable, dirty version of what is a work in progress; 
 #   as more files are consumed, it will be improved.
 import urllib.request
-import os, re, traceback
+import os, re, sys, traceback
 
 from pathlib import Path
-from subprocess import check_output
+from subprocess import check_call, check_output
 
-todaysTopStories = lambda line: re.finditer("""<a class=\Sstory-link\S href="(.*)">""",line)
+sites = {"https://thehackernews.com/":"""<a class=\Sstory-link\S href="(.*)">""",
+"https://packetstormsecurity.com/news/":"""<dt><a href="/news/(view/.*)">"""}
+grepStories = lambda expr,line: re.finditer(expr,line)
 cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
 python = "python3.8"
 cwd = Path(os.getcwd())
@@ -26,19 +28,15 @@ def flatten(lines):
     return [line for lst in lines for line in lst]
 
 def downloadUrl(url):
+    blob = "blob.html"
+    cout("info",f"Downloading {url}.")
+
     try:
-        blob = "blob.html"
-        cout("info",f"Downloading {url}.")
-        with urllib.request.urlopen(url) as fd:
-            lines = [ line.decode("utf-8").strip() for line in fd.readlines() ]
-
-        cout("info",f"Saving to temporary file {blob}.")
-        with open(blob, "w") as fd:
-            [ fd.write(f"{line}\n") for line in lines ]
-
-        dispatchTextToSpeechify(blob)
+        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
     except:
         cout("error",f"{traceback.format_exc()}")
+    else:
+        dispatchTextToSpeechify(blob)
 
 def dispatchTextToSpeechify(blob):
     try:
@@ -61,16 +59,17 @@ def getYesterdaysNews():
         cout("error",f"{traceback.format_exc()}")
     return ret
 
-
-def main(url):
+def main():
     try:
-        with urllib.request.urlopen(url) as fd:
-            thehackerNewsHomepage = [ line.decode("utf-8").strip() for line in fd.readlines() ]
-        latestNews = flatten(list(map((lambda l: [m.group(1) for m in todaysTopStories(l)]),thehackerNewsHomepage)))
-
+        latestNews = []
+        for site,pattern in sites.items():
+            with urllib.request.urlopen(site) as fd:
+                siteLandingPage = [ line.decode("utf-8").strip() for line in fd.readlines() ]
+            latestNews += flatten(list(map((lambda line: [m.group(1) if site in m.group(1) else f"{site}{m.group(1)}" for m in grepStories(pattern,line)]),siteLandingPage)))
         yesterdaysHeadlines = getYesterdaysNews()
         latestNews = list(set(latestNews) - set(yesterdaysHeadlines))
-
+        # cout("debug",f"# of new articles: {len(latestNews)}")
+        # cout("debug",f"new articles: {latestNews}")
         if latestNews:
             with open(out_file, "a") as fd:
                 [ fd.write(f"{line}\n") for line in latestNews ]
@@ -86,5 +85,5 @@ def main(url):
 if __name__ == '__main__':
     out_file = "latestNews.txt"
     cout("success","Running.")
-    main("https://thehackernews.com/")
+    main()
     cout("success",f"Done. Today's headlines saved to {out_file}.")
