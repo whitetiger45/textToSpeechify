@@ -1,0 +1,39 @@
+# This workflow will install Python dependencies, run tests and lint with a single version of Python
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: textToSpeechify
+
+on:
+  workflow_dispatch: 
+  
+  push:
+    branches: 
+    - main
+
+permissions:
+  contents: read|write
+
+jobs:
+  regression-test-on-ubuntu:
+    strategy:
+        matrix:
+          version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: tests
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.version }}
+    - name: Install textToSpeechifyTester dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install curl
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run textToSpeechifyTester
+      run: |
+        python textToSpeechifyTester.py 
