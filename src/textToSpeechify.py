@@ -9,49 +9,13 @@
 #   as more files are consumed, it will be improved.
 import argparse, copy, html
 import os, re, string, sys, traceback
+import ttshelpers as ttsh
+
 from collections import deque
 from pathlib import Path
 
-name = "textToSpeechify"
-version = "1.1.6.1"
-USAGE = -1
-SUCCESS = 0
-NOT_SERIOUS = 3
-FATAL = 6
-
-tag_t = {
-0:"title",
-1:"p",
-2:"a",
-3:"b",
-4:"em",
-5:"i",
-6:"img",
-7:"figure",
-8:"strong",
-9:"li",
-10:"div",
-11:"ol",
-12:"ul",
-13:"span",
-14:"polygon",
-15:"path",
-16:"script",
-17:"style"
-}
-
-# these are tags that we want to avoid copying to our output file.
-skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-
 # a function for looking up the index of HTML element tag indexes in tag_t
 index = lambda v: list(tag_t.values()).index(v)
-
-cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
-def cout(message_type,message):
-    print(f"[{cout_t[message_type]}] {message}")
-
-def flatten(lines):
-    return [line for lst in lines for line in lst]
 
 # deflate removes empty elements from a list
 deflate = lambda lst: list(filter((lambda l: l != ""),lst))
@@ -170,7 +134,7 @@ def parseHTMLFile(lines):
             stepSix = stepFour[stepFiveA:stepFiveB].split("\n")
             for line in stepSix:
                 m = stripTagL(line)
-                if m and m[1] not in skip_tag_t:
+                if m and m[1] not in ttsh.skip_tag_t:
                     documentText.append(m[2])
             cout("debug",f"{documentText}")
         else:
@@ -223,7 +187,7 @@ def saveParsedFile(state):
             fd.write("\n")
     except:
         cout("error",f"{traceback.format_exc()}")
-        STATUS = NOT_SERIOUS
+        STATUS = ttsh.NOT_SERIOUS
 
 def main(argv):
     global STATUS
@@ -238,8 +202,8 @@ def main(argv):
         else:    
             state = parseHTMLFile(lines)
         state = list(map(html.unescape,state))
-        state = list(map(normalize,state))
-        state = deflate(state)
+        state = list(map(ttsh.normalize,state))
+        state = ttsh.deflate(state)
         
         ###########################################################################################
         # 2022.05.26
@@ -252,15 +216,15 @@ def main(argv):
             saveParsedFile(state)
         else:
             cout("warn","Uh-oh...state is empty. Check program output(s) to see what went wrong.")
-            STATUS = NOT_SERIOUS
+            STATUS = ttsh.NOT_SERIOUS
     except:
         cout("error",f"{traceback.format_exc()}")
-        STATUS = FATAL
+        STATUS = ttsh.FATAL
 
 if __name__ == '__main__':
 
-    parser = argparse.ArgumentParser(prog=f"{name}", description="Prepare text for speech.")
-    parser.add_argument("--version", action="version", version=f"{name} {version}")
+    parser = argparse.ArgumentParser(prog=f"{ttsh.name}", description="Prepare text for speech.")
+    parser.add_argument("--version", action="version", version=f"{ttsh.name} {ttsh.version}")
     parser.add_argument("-f", "--file", dest="in_file", metavar="HTML_FILE", type=Path, required=True,
         help="html file to be parsed")    
     parser.add_argument("-hfp","--htmlfrompdf", dest="htmlfrompdf", 
@@ -269,13 +233,14 @@ if __name__ == '__main__':
     parser.add_argument("-O", "--output", dest="out_file", type=Path, default="output.txt",
         help="file to write output to")
 
+    cout = ttsh.cout
     argv = parser.parse_args()
     cout("debug",f"{argv}")
-    STATUS = SUCCESS
+    STATUS = ttsh.SUCCESS
     out_file = argv.out_file
     cout("success","Running.")
     main(argv)
-    if STATUS == SUCCESS:
+    if STATUS == ttsh.SUCCESS:
         cout("success",f"Done. Check {out_file}.")
     else:
         cout("error",f"return code: {STATUS}")

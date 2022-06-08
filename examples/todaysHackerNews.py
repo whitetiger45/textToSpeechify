@@ -12,42 +12,15 @@ import urllib.request
 import os, re, sys, traceback
 
 from pathlib import Path
-from subprocess import check_call, check_output
+
+src = list(Path(Path(os.getcwd()).parent).rglob("ttshelpers.py"))[-1].parent
+sys.path.insert(0, f"{src}")
+
+import ttshelpers as ttsh
 
 sites = {"https://thehackernews.com/":"""<a class=\Sstory-link\S href="(.*)">""",
 "https://packetstormsecurity.com/news/":"""<dt><a href="/news/(view/.*)">"""}
 grepStories = lambda expr,line: re.finditer(expr,line)
-cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
-python = "python3.8"
-cwd = Path(os.getcwd())
-
-def cout(message_type,message):
-    print(f"[{cout_t[message_type]}] {message}")
-
-def flatten(lines):
-    return [line for lst in lines for line in lst]
-
-def downloadUrl(url):
-    blob = "blob.html"
-    cout("info",f"Downloading {url}.")
-
-    try:
-        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
-    except:
-        cout("error",f"{traceback.format_exc()}")
-    else:
-        dispatchTextToSpeechify(blob)
-
-def dispatchTextToSpeechify(blob):
-    try:
-        textToSpeechify = list(Path(cwd.parent).rglob("textToSpeechify.py"))[0]
-        outPath = Path(cwd).joinpath("output.txt")
-        ret = check_output([f"{python}", f"{textToSpeechify}", "-f", f"{blob}", "-O",f"{outPath}"])
-        ret = ret.decode("utf-8","ignore")
-        if re.search("\[x\]",ret):
-            cout("warn",f"{ret}")
-    except:
-        cout("error",f"{traceback.format_exc()}")
 
 def getYesterdaysNews():
     ret = []
@@ -65,7 +38,7 @@ def main():
         for site,pattern in sites.items():
             with urllib.request.urlopen(site) as fd:
                 siteLandingPage = [ line.decode("utf-8").strip() for line in fd.readlines() ]
-            latestNews += flatten(list(map((lambda line: [m.group(1) if site in m.group(1) else f"{site}{m.group(1)}" for m in grepStories(pattern,line)]),siteLandingPage)))
+            latestNews += ttsh.flatten(list(map((lambda line: [m.group(1) if site in m.group(1) else f"{site}{m.group(1)}" for m in grepStories(pattern,line)]),siteLandingPage)))
         yesterdaysHeadlines = getYesterdaysNews()
         latestNews = list(set(latestNews) - set(yesterdaysHeadlines))
         # cout("debug",f"# of new articles: {len(latestNews)}")
@@ -75,7 +48,7 @@ def main():
                 [ fd.write(f"{line}\n") for line in latestNews ]
 
             for headline in latestNews:
-                downloadUrl(headline)
+                ttsh.downloadUrl(headline)
         else:
             cout("info","You've read all of the latest articles. Check back in a couple hours.")
 
@@ -83,6 +56,7 @@ def main():
         cout("error",f"{traceback.format_exc()}")
 
 if __name__ == '__main__':
+    cout = ttsh.cout
     out_file = "latestNews.txt"
     cout("success","Running.")
     main()

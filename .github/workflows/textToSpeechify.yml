@@ -14,12 +14,13 @@ on:
     - main
 
 jobs:
-  regression-test-on-ubuntu:
+  regression-tests-ubuntu-and-macos:
 
     strategy:
         matrix:
-          version: ["3.6", "3.7", "3.8", "3.9", "3.10"]
-    runs-on: ubuntu-latest
+          version: ["3.7", "3.8", "3.9", "3.10"]
+          os: [ ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
 
     defaults:
       run:
@@ -33,11 +34,36 @@ jobs:
 
     - name: Install textToSpeechifyTester dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install curl
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run textToSpeechifyTester
       run: |
         cd tests
         python textToSpeechifyTester.py 
+
+  regression-test-windows:
+
+    strategy:
+        matrix:
+          version: ["3.7", "3.8", "3.9", "3.10"]
+    runs-on: windows-latest
+
+    defaults:
+      run:
+        shell: pwsh
+    env:
+        PYTHONIOENCODING: utf-8
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.version }}
+
+    - name: Install textToSpeechifyTester dependencies
+      run: |
+        py -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run textToSpeechifyTester
+      run: |
+        cd tests
+        py -3 textToSpeechifyTester.py 

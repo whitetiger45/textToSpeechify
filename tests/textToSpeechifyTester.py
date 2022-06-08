@@ -6,21 +6,19 @@
 # note:
 #   this is a stable, dirty version of what is a work in progress; 
 #   as more files are consumed, it will be improved.
-import os, re, traceback
+import os, re, sys, traceback
 
 from pathlib import Path
 from subprocess import check_call, check_output
 
+src = list(Path(Path(os.getcwd()).parent).rglob("ttshelpers.py"))[-1].parent
+sys.path.insert(0, f"{src}")
+
+import ttshelpers as ttsh
+
 FAILED_DOWNLOADS = []
 FAILED_DISPATCHES = []
 SUCCESSFUL_DISPATCHES = 0
-
-cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
-python = "python3.8"
-cwd = Path(os.getcwd())
-
-def cout(message_type,message):
-    print(f"[{cout_t[message_type]}] {message}")
 
 def downloadUrl(url):
     global FAILED_DISPATCHES, SUCCESSFUL_DISPATCHES
@@ -43,12 +41,13 @@ def dispatchTextToSpeechify(blob,url):
     global SUCCESSFUL_DISPATCHES
     cout("info",f"Dispatching textToSpeechify.")
     try:
-        textToSpeechify = list(Path(cwd.parent).rglob("textToSpeechify.py"))[0]
-        outPath = Path(cwd).joinpath("output.txt")
-        ret = check_output([f"{python}", f"{textToSpeechify}", "-f", f"{blob}", "-O",f"{outPath}"])
+        # textToSpeechify = list(Path(Path(os.getcwd()).parent).rglob("textToSpeechify.py"))[-1]
+        outPath = "output.txt"
+        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"])
         ret = ret.decode("utf-8","ignore")
         if re.search("\[x\]",ret):
             FAILED_DISPATCHES.append(url)
+            cout("debug",f"{ret}")
         else:
             SUCCESSFUL_DISPATCHES += 1
     except:
@@ -93,6 +92,7 @@ def main(in_file):
         cout("error",f"{traceback.format_exc()}")
 
 if __name__ == '__main__':
+    cout = ttsh.cout
     in_file = "urlFeed.TESTS.txt"
     cout("info","Running.")
     main(in_file)

@@ -1,5 +1,14 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 2.0
+Date: 2022.06.08
+
+Changes:
+    2022.06.08:
+        - moved all duplicated functions and variables to newly created ttshelper.py file to modularize code
+    2022.06.07:
+        - added index.html, workflow
+-------------------------
 Release: 1.1.6.1
 Date: 2022.06.06
 
