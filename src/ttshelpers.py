@@ -26,7 +26,6 @@ cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
 cwd = Path(os.getcwd())
 name = "textToSpeechify"
 python = "python3"
-ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
 tag_t = {
 0:"title",
 1:"p",
@@ -47,9 +46,10 @@ tag_t = {
 16:"script",
 17:"style"
 }
+ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
 # these are tags that we want to avoid copying to our output file.
 skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-version = "2.0"
+version = "2.1"
 
 # GLOBAL FUNCTIONS #
 def cout(message_type,message):
@@ -60,7 +60,8 @@ def downloadUrl(url):
     cout("info",f"Downloading {url}.")
 
     try:
-        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
+        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
+            encoding="utf-8",errors="ignore")
     except:
         cout("error",f"{traceback.format_exc()}")
     else:
@@ -70,8 +71,8 @@ def dispatchTextToSpeechify(blob):
     cout("info",f"Dispatching textToSpeechify.")
     try:
         outPath = "output.txt"
-        ret = check_output([f"{python}", f"{ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"])
-        ret = "".join(line for line in ret.decode("utf-8","ignore").split("\n"))
+        ret = check_output([f"{python}", f"{ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"],
+            encoding="utf-8",errors="ignore")
         if re.search("\[x\]",ret):
             cout("error",f"{ret}")
         else:
@@ -81,3 +82,7 @@ def dispatchTextToSpeechify(blob):
 
 def flatten(lines):
     return [line for lst in lines for line in lst]
+
+def windows():
+    pltfrm = platform.system().lower()
+    return pltfrm == "windows"

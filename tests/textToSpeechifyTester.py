@@ -27,7 +27,8 @@ def downloadUrl(url):
         cout("info",f"Downloading {url}.")
 
         try:
-            cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"])
+            cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
+                encoding="utf-8", errors="ignore")
         except:
             FAILED_DOWNLOADS.append(url)
         else:
@@ -43,8 +44,8 @@ def dispatchTextToSpeechify(blob,url):
     try:
         # textToSpeechify = list(Path(Path(os.getcwd()).parent).rglob("textToSpeechify.py"))[-1]
         outPath = "output.txt"
-        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"])
-        ret = ret.decode("utf-8","ignore")
+        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"],
+            encoding="utf-8", errors="ignore")
         if re.search("\[x\]",ret):
             FAILED_DISPATCHES.append(url)
             cout("debug",f"{ret}")

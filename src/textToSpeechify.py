@@ -153,16 +153,17 @@ def parsePDFToHTMLFile(lines):
         stepThree = stepTwo.find("</head>\n")
         stepFour = stepTwo[stepThree+len("</head>\n"):]
         stepFiveA = re.search("<body[\s]*.*?>",stepFour)
-        stepFiveB = stepFour.find("</body>");
+        stepFiveB = stepFour[-1:0:-1].find(">ydob/<")
         if stepFiveA and stepFiveB != -1:
             stepFiveA = stepFiveA.span()[0]
+            stepFiveB = len(stepFour)-(stepFiveB+len(">ydob/<"))
             stepSix = stepFour[stepFiveA:stepFiveB].split("\n")
             for line in stepSix:
                 m = stripPDFToHTMLTagL(line)
                 if m:
                     documentText.append(m[1])
         else:
-            cout("error","Did not find the initial '<body>' tag. Time for an upgrade!")            
+            cout("error",f"Did not find one of the 'body' tags. Locations (<body>,</body>): ({stepFiveA},{stepFiveB}). Time for an upgrade!")
     except:
         cout("error",f"{traceback.format_exc()}")
     return documentText
@@ -191,10 +192,10 @@ def saveParsedFile(state):
 
 def main(argv):
     global STATUS
-
     in_file = argv.in_file
+    lines = []
     try:
-        with open(in_file, "r") as fd:
+        with open(in_file, "r", encoding="utf-8", errors="ignore") as fd:
             lines = [ line.strip() for line in fd.readlines() ]
         state = []
         if argv.htmlfrompdf:

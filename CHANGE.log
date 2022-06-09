@@ -1,5 +1,15 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 2.1
+Date: 2022.06.09
+
+Changes:
+    2022.06.09:
+        - refactored parsePDFToHTMLFile function and tested against a single pdf
+        - added additional regression-test os's to textToSpeechify.yml for multi-platform testing
+        - update .gitignore
+
+-------------------------
 Release: 2.0
 Date: 2022.06.08
 
@@ -8,6 +18,7 @@ Changes:
         - moved all duplicated functions and variables to newly created ttshelper.py file to modularize code
     2022.06.07:
         - added index.html, workflow
+        
 -------------------------
 Release: 1.1.6.1
 Date: 2022.06.06
