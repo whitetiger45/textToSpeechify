@@ -20,32 +20,25 @@ FAILED_DOWNLOADS = []
 FAILED_DISPATCHES = []
 SUCCESSFUL_DISPATCHES = 0
 
-def downloadUrl(url):
+def downloadUrl(url,outputFile="blob.tests.html"):
     global FAILED_DISPATCHES, SUCCESSFUL_DISPATCHES
     try:
-        blob = "blob.tests.html"
         cout("info",f"Downloading {url}.")
-
         try:
-            cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
-                encoding="utf-8", errors="ignore")
+            cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
+            encoding="utf-8",errors="ignore")
         except:
             FAILED_DOWNLOADS.append(url)
-        else:
-            dispatchTextToSpeechify(blob,url)
-
     except:
         cout("error",f"{traceback.format_exc()}")
         FAILED_DISPATCHES.append(url)
 
-def dispatchTextToSpeechify(blob,url):
+def dispatchTextToSpeechify(url,inputFile="blob.tests.html",outputFile="output.txt"):
     global SUCCESSFUL_DISPATCHES
     cout("info",f"Dispatching textToSpeechify.")
     try:
-        # textToSpeechify = list(Path(Path(os.getcwd()).parent).rglob("textToSpeechify.py"))[-1]
-        outPath = "output.txt"
-        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"],
-            encoding="utf-8", errors="ignore")
+        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{inputFile}", "-O", f"{outputFile}"],
+            encoding="utf-8",errors="ignore")
         if re.search("\[x\]",ret):
             FAILED_DISPATCHES.append(url)
             cout("debug",f"{ret}")
@@ -86,6 +79,7 @@ def main(in_file):
         if urls:
             for url in urls:
                 downloadUrl(url)
+                dispatchTextToSpeechify(url)
             getTestResults(urls)
         else:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again.")

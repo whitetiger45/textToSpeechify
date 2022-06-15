@@ -1,5 +1,18 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 3.0
+Date: 2022.06.15
+
+Changes:
+    2022.06.15:
+        - improve api reusability by decoupling call to dispatchTextToSpeechify in downloadUrl in ttshelpers
+        - add optional parameter outputFile (w/ default) to downloadUrl(url,outputFile=blob)
+        - add optional parameters (w/ defaults) outputFile and inputFile to dispatchTextToSpeechify(inputFile=blob,outputFile="output.txt")
+        - make blob a global variable
+        - remove duplicate function definitions from textToSpeechify
+        - remove use of urllib from todaysHackerNews in examples
+
+-------------------------
 Release: 2.1
 Date: 2022.06.09
 

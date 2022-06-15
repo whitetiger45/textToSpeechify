@@ -32,12 +32,23 @@ def getYesterdaysNews():
         cout("error",f"{traceback.format_exc()}")
     return ret
 
+def downloadUrl(url):
+    blob = "blob.html"
+    cout("info",f"Downloading {url}")
+
+    try:
+        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
+            encoding="utf-8",errors="ignore")
+    except:
+        cout("error",f"{traceback.format_exc()}")
+
 def main():
     try:
         latestNews = []
         for site,pattern in sites.items():
-            with urllib.request.urlopen(site) as fd:
-                siteLandingPage = [ line.decode("utf-8").strip() for line in fd.readlines() ]
+            ttsh.downloadUrl(site)
+            with open(ttsh.blob,"r") as fd:
+                siteLandingPage = [ line.strip() for line in fd.readlines() ]
             latestNews += ttsh.flatten(list(map((lambda line: [m.group(1) if site in m.group(1) else f"{site}{m.group(1)}" for m in grepStories(pattern,line)]),siteLandingPage)))
         yesterdaysHeadlines = getYesterdaysNews()
         latestNews = list(set(latestNews) - set(yesterdaysHeadlines))
@@ -49,6 +60,7 @@ def main():
 
             for headline in latestNews:
                 ttsh.downloadUrl(headline)
+                ttsh.dispatchTextToSpeechify()
         else:
             cout("info","You've read all of the latest articles. Check back in a couple hours.")
 

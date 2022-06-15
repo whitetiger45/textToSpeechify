@@ -17,12 +17,6 @@ from pathlib import Path
 # a function for looking up the index of HTML element tag indexes in tag_t
 index = lambda v: list(tag_t.values()).index(v)
 
-# deflate removes empty elements from a list
-deflate = lambda lst: list(filter((lambda l: l != ""),lst))
-
-# normalize a unicode string and remove escape bytes
-normalize = lambda line: line.encode("ascii","ignore").decode("ascii","ignore")
-
 # regular expressions to find html tags
 # i.e. <h4 style="text-align: left;"><strong>3 </strong>&#8212; <strong>Collection</strong></h4><ol>
 addNewline = lambda line: line.replace("><",">\n<")
@@ -136,7 +130,7 @@ def parseHTMLFile(lines):
                 m = stripTagL(line)
                 if m and m[1] not in ttsh.skip_tag_t:
                     documentText.append(m[2])
-            cout("debug",f"{documentText}")
+            # cout("debug",f"{documentText}")
         else:
             cout("error","Did not find the initial '<p>' tag. Time for an upgrade!")            
     except:
@@ -236,7 +230,7 @@ if __name__ == '__main__':
 
     cout = ttsh.cout
     argv = parser.parse_args()
-    cout("debug",f"{argv}")
+    # cout("debug",f"{argv}")
     STATUS = ttsh.SUCCESS
     out_file = argv.out_file
     cout("success","Running.")

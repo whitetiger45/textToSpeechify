@@ -34,6 +34,7 @@ def main(in_file):
         if urls:
             for url in urls:
                 ttsh.downloadUrl(url)
+                ttsh.dispatchTextToSpeechify()
         else:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again.")
     except:

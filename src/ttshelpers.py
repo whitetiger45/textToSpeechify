@@ -22,6 +22,7 @@ deflate = lambda lst: list(filter((lambda l: l != ""),lst))
 normalize = lambda line: line.encode("ascii","ignore").decode("ascii","ignore")
 
 # GLOBAL VARIABLES #
+blob = "blob.html"
 cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
 cwd = Path(os.getcwd())
 name = "textToSpeechify"
@@ -49,29 +50,25 @@ tag_t = {
 ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
 # these are tags that we want to avoid copying to our output file.
 skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-version = "2.1"
+version = "3.0"
 
 # GLOBAL FUNCTIONS #
 def cout(message_type,message):
     print(f"[{cout_t[message_type]}] {message}")
 
-def downloadUrl(url):
-    blob = "blob.html"
+def downloadUrl(url,outputFile=blob):
     cout("info",f"Downloading {url}.")
 
     try:
-        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
+        cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
             encoding="utf-8",errors="ignore")
     except:
         cout("error",f"{traceback.format_exc()}")
-    else:
-        dispatchTextToSpeechify(blob)
 
-def dispatchTextToSpeechify(blob):
+def dispatchTextToSpeechify(inputFile=blob,outputFile="output.txt"):
     cout("info",f"Dispatching textToSpeechify.")
     try:
-        outPath = "output.txt"
-        ret = check_output([f"{python}", f"{ttsPath}", "-f", f"{blob}", "-O", f"{outPath}"],
+        ret = check_output([f"{python}", f"{ttsPath}", "-f", f"{inputFile}", "-O", f"{outputFile}"],
             encoding="utf-8",errors="ignore")
         if re.search("\[x\]",ret):
             cout("error",f"{ret}")
