@@ -18,25 +18,35 @@ from pathlib import Path
 
 def main(in_file):
     try:
-        cout("info",f"Reading {in_file}.")
+        cout("info",f"Reading {in_file}")
         with open(in_file,"r") as fd:
             urls = [ url.strip() for url in fd.readlines() ]
-        cout("success",f"# of urls read: {len(urls)}.")
+        cout("success",f"# of urls read: {len(urls)}")
 
-        # filter out pdfs for now until we can build in support for dynamic calls to
-        # pdftothml
         pdfs = list(filter((lambda url: Path(url).suffix == ".pdf"), urls))
         if pdfs:
             urls = list(set(urls) - set(pdfs))
-            cout("warn",f"textToSpeechify does not currently support dynamic creation of html files from pdfs.")
-            cout("warn",f"These files have been filtered from your urlFeed: {pdfs}.")
+            if not ttsh.windows():
+                if ttsh.exists(ttsh.pdfToHTML) and ttsh.is_file(ttsh.pdfToHTML):
+                    for url in pdfs:
+                        ttsh.downloadUrl(url,outputFile=ttsh.pdfBlob+".pdf")
+                        ttsh.convertPDFToHTML()
+                        ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"-html.html",pdf=True)
+                    ttsh.unlink(ttsh.pdfBlob+"s.html")
+                    ttsh.unlink(ttsh.pdfBlob+".pdf")
+                else:
+                    cout("warn",f"Could not locate pdftohtml on your system")
+                    cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
+            else:
+                cout("warn",f"textToSpeechify does not currently support dynamic creation of text from pdfs on Windows")
+                cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
 
         if urls:
             for url in urls:
                 ttsh.downloadUrl(url)
                 ttsh.dispatchTextToSpeechify()
         else:
-            cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again.")
+            cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again")
     except:
         cout("error",f"{traceback.format_exc()}")
 
@@ -45,4 +55,4 @@ if __name__ == '__main__':
     in_file = "urlFeed.txt"
     cout("success","Running.")
     main(in_file)
-    cout("success",f"Done.")
+    cout("success",f"Done")

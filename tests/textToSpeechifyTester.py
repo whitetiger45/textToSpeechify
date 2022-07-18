@@ -18,6 +18,7 @@ import ttshelpers as ttsh
 
 FAILED_DOWNLOADS = []
 FAILED_DISPATCHES = []
+FAILED_CONVERSIONS = []
 SUCCESSFUL_DISPATCHES = 0
 
 def downloadUrl(url,outputFile="blob.tests.html"):
@@ -33,12 +34,30 @@ def downloadUrl(url,outputFile="blob.tests.html"):
         cout("error",f"{traceback.format_exc()}")
         FAILED_DISPATCHES.append(url)
 
-def dispatchTextToSpeechify(url,inputFile="blob.tests.html",outputFile="output.txt"):
+def convertPDFToHTML(url,inputFile="blob.tests.pdf2.pdf"):
+    if url in FAILED_DOWNLOADS:
+        return
+    cout("info",f"Converting pdf to html")
+    try:
+        cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
+            encoding="utf-8",errors="ignore")
+    except:
+        cout("error",f"{traceback.format_exc()}")
+        FAILED_CONVERSIONS.append(url)
+
+def dispatchTextToSpeechify(url,inputFile="blob.tests.html",pdf=False,outputFile="output.txt"):
     global SUCCESSFUL_DISPATCHES
+    if url in FAILED_DOWNLOADS or url in FAILED_CONVERSIONS:
+        return
     cout("info",f"Dispatching textToSpeechify.")
     try:
-        ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", f"{inputFile}", "-O", f"{outputFile}"],
-            encoding="utf-8",errors="ignore")
+        if not pdf:
+            ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", 
+                f"{inputFile}", "-O", f"{outputFile}"], encoding="utf-8",errors="ignore")
+        else:
+            ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f",
+                f"{inputFile}", "-O", f"{outputFile}", "-hfp"],
+                encoding="utf-8",errors="ignore")
         if re.search("\[x\]",ret):
             FAILED_DISPATCHES.append(url)
             cout("debug",f"{ret}")
@@ -68,19 +87,29 @@ def main(in_file):
         with open(in_file,"r") as fd:
             urls = [ url.strip() for url in fd.readlines() ]
         
-        # filter out pdfs for now until we can build in support for dynamic calls to
-        # pdftothml
         pdfs = list(filter((lambda url: Path(url).suffix == ".pdf"), urls))
         if pdfs:
             urls = list(set(urls) - set(pdfs))
-            cout("warn",f"textToSpeechify does not currently support dynamic creation of html files from pdfs.")
-            cout("warn",f"These files have been filtered from your urlFeed: {pdfs}.")
-
+            if not ttsh.windows():
+                if ttsh.exists(ttsh.pdfToHTML) and ttsh.is_file(ttsh.pdfToHTML):
+                    p = "blob.tests.pdf2"
+                    for url in pdfs:
+                        downloadUrl(url,outputFile=p+".pdf")
+                        convertPDFToHTML(url)
+                        dispatchTextToSpeechify(url,inputFile=p+"-html.html",pdf=True)
+                    ttsh.unlink(p+"-html.html")
+                    ttsh.unlink(p+".pdf")
+                else:
+                    cout("warn",f"Could not locate pdftotext on your system")
+                    cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
+            else:
+                cout("warn",f"textToSpeechify does not currently support dynamic creation of text from pdfs on Windows")
+                cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
         if urls:
             for url in urls:
                 downloadUrl(url)
                 dispatchTextToSpeechify(url)
-            getTestResults(urls)
+            getTestResults(urls+pdfs)
         else:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again.")
     except:

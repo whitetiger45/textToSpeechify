@@ -14,12 +14,42 @@ on:
     - main
 
 jobs:
-  regression-tests-ubuntu-and-macos:
+  regression-test-ubuntu:
 
     strategy:
         matrix:
           version: ["3.7", "3.8", "3.9", "3.10"]
-          os: [ ubuntu-latest, macos-latest]
+          os: [ ubuntu-latest ]
+    runs-on: ${{ matrix.os }}
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.version }}
+    - name: Install pdftohtml
+      run: |
+        sudo apt-get update
+        sudo apt-get install poppler-utils
+    - name: Install textToSpeechifyTester dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run textToSpeechifyTester
+      run: |
+        cd tests
+        python textToSpeechifyTester.py
+
+  regression-test-macos:
+
+    strategy:
+        matrix:
+          version: ["3.7", "3.8", "3.9", "3.10"]
+          os: [ macos-latest ]
     runs-on: ${{ matrix.os }}
 
     defaults:
@@ -32,6 +62,11 @@ jobs:
       with:
         python-version: ${{ matrix.version }}
 
+    - name: Install pdftohtml
+      run: |
+        brew update
+        brew install pdftohtml
+
     - name: Install textToSpeechifyTester dependencies
       run: |
         python -m pip install --upgrade pip
@@ -39,7 +74,7 @@ jobs:
     - name: Run textToSpeechifyTester
       run: |
         cd tests
-        python textToSpeechifyTester.py 
+        python textToSpeechifyTester.py
 
   regression-test-windows:
 

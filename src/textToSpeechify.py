@@ -143,16 +143,16 @@ def parsePDFToHTMLFile(lines):
     documentText = []
     try:
         stepOne = "".join(line for line in lines)
-        stepTwo = stepOne.replace("<","\n<")
-        stepThree = stepTwo.find("</head>\n")
-        stepFour = stepTwo[stepThree+len("</head>\n"):]
-        stepFiveA = re.search("<body[\s]*.*?>",stepFour)
-        stepFiveB = stepFour[-1:0:-1].find(">ydob/<")
-        if stepFiveA and stepFiveB != -1:
-            stepFiveA = stepFiveA.span()[0]
-            stepFiveB = len(stepFour)-(stepFiveB+len(">ydob/<"))
-            stepSix = stepFour[stepFiveA:stepFiveB].split("\n")
-            for line in stepSix:
+        stepOne = stepOne.replace("<","\n<")
+        stepTwo = stepOne.find("</head>\n")
+        stepTwo = stepOne[stepTwo+len("</head>\n"):]
+        stepThreeA = re.search("<body[\s]*.*?>",stepTwo)
+        stepThreeB = stepTwo[-1:0:-1].find(">ydob/<")
+        if stepThreeA and stepThreeB != -1:
+            stepThreeA = stepThreeA.span()[0]
+            stepThreeB = len(stepTwo)-(stepThreeB+len(">ydob/<"))
+            stepTwo = stepTwo[stepThreeA:stepThreeB].split("\n")
+            for line in stepTwo:
                 m = stripPDFToHTMLTagL(line)
                 if m:
                     documentText.append(m[1])

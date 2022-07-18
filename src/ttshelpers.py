@@ -18,14 +18,19 @@ FATAL = 6
 
 # LAMBDA FUNCTIONS #
 deflate = lambda lst: list(filter((lambda l: l != ""),lst))
+exists = lambda p: Path(p).exists()
+is_file = lambda p: Path(p).is_file()
 # normalize a unicode string and remove escape bytes
 normalize = lambda line: line.encode("ascii","ignore").decode("ascii","ignore")
+unlink = lambda p: Path(p).unlink()
 
 # GLOBAL VARIABLES #
 blob = "blob.html"
 cout_t = {"info":"*","error":"x","success":"✓","debug":"DEBUG","warn":"!"}
 cwd = Path(os.getcwd())
 name = "textToSpeechify"
+pdfBlob = "blob.pdf2"
+pdfToHTML = "/usr/bin/pdftohtml"
 python = "python3"
 tag_t = {
 0:"title",
@@ -50,9 +55,17 @@ tag_t = {
 ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
 # these are tags that we want to avoid copying to our output file.
 skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-version = "3.0"
+version = "4.0"
 
 # GLOBAL FUNCTIONS #
+def convertPDFToHTML(inputFile=pdfBlob+".pdf"):
+    cout("info",f"Converting pdf to html")
+    try:
+        cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
+            encoding="utf-8",errors="ignore")
+    except:
+        cout("error",f"{traceback.format_exc()}")
+
 def cout(message_type,message):
     print(f"[{cout_t[message_type]}] {message}")
 
@@ -65,11 +78,17 @@ def downloadUrl(url,outputFile=blob):
     except:
         cout("error",f"{traceback.format_exc()}")
 
-def dispatchTextToSpeechify(inputFile=blob,outputFile="output.txt"):
-    cout("info",f"Dispatching textToSpeechify.")
+def dispatchTextToSpeechify(inputFile=blob,pdf=False,outputFile="output.txt"):
+    cout("info",f"Dispatching textToSpeechify")
     try:
-        ret = check_output([f"{python}", f"{ttsPath}", "-f", f"{inputFile}", "-O", f"{outputFile}"],
-            encoding="utf-8",errors="ignore")
+        if not pdf:
+            ret = check_output([f"{python}", f"{ttsPath}", "-f",
+                f"{inputFile}", "-O", f"{outputFile}"],
+                encoding="utf-8",errors="ignore")
+        else:
+            ret = check_output([f"{python}", f"{ttsPath}", "-f",
+                f"{inputFile}", "-O", f"{outputFile}", "-hfp"],
+                encoding="utf-8",errors="ignore")
         if re.search("\[x\]",ret):
             cout("error",f"{ret}")
         else:

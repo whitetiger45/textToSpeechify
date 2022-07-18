@@ -1,5 +1,16 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.0
+Date: 2022.07.18
+
+Changes:
+    2022.07.15:
+        - first refactor parsePDFToHTMLFile (textToSpeechify) to improve space efficiency
+        - add pdfBlob, pdfToHTML, is_file, unlink, exists, convertPDFToHTML, and dispatchTextToSpeechify to ttshelpers
+        - add pdf parameter to dispatchTextToSpeechify, and add logic to download, convert, and parse a pdf file dynamically
+        - added sanity check for url using variables FAILED_DOWNLOADS and FAILED_CONVERSIONS in textToSpeechifyTester
+
+-------------------------
 Release: 3.0
 Date: 2022.06.15
 
