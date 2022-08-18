@@ -27,13 +27,23 @@ def main(in_file):
         if pdfs:
             urls = list(set(urls) - set(pdfs))
             if not ttsh.windows():
-                if ttsh.exists(ttsh.pdfToHTML) and ttsh.is_file(ttsh.pdfToHTML):
+                if ttsh.checkForPDFToHTML():
                     for url in pdfs:
                         ttsh.downloadUrl(url,outputFile=ttsh.pdfBlob+".pdf")
                         ttsh.convertPDFToHTML()
-                        ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"-html.html",pdf=True)
-                    ttsh.unlink(ttsh.pdfBlob+"s.html")
-                    ttsh.unlink(ttsh.pdfBlob+".pdf")
+                        if ttsh.macOS():
+                            ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"s.html",pdf=True)
+                            try:
+                                ttsh.unlink(ttsh.pdfBlob+"_ind.html")
+                            except:
+                                cout("warn",f"{traceback.format_exc()}")
+                        else:
+                            ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"-html.html",pdf=True)
+                    try:
+                        ttsh.unlink(ttsh.pdfBlob+"s.html")
+                        ttsh.unlink(ttsh.pdfBlob+".pdf")
+                    except:
+                        cout("warn",f"{traceback.format_exc()}")
                 else:
                     cout("warn",f"Could not locate pdftohtml on your system")
                     cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
@@ -45,7 +55,7 @@ def main(in_file):
             for url in urls:
                 ttsh.downloadUrl(url)
                 ttsh.dispatchTextToSpeechify()
-        else:
+        elif not pdfs:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again")
     except:
         cout("error",f"{traceback.format_exc()}")

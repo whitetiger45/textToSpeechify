@@ -119,11 +119,12 @@ def parseHTMLFile(lines):
         stepTwo = stepOne.replace("<","\n<")
         stepThree = stepTwo.find("</head>\n")
         stepFour = stepTwo[stepThree+len("</head>\n"):]
-        stepFiveA = re.search("<p[\s]*.*?>",stepFour)
-        stepFiveB = -1
-        if stepFiveA:
+        stepFiveA = re.search("<p[\s]*.*?>",stepFour,flags=re.IGNORECASE)
+        stepFiveB = re.search(">p/<",stepFour[-1:0:-1],flags=re.IGNORECASE)
+        if stepFiveA and stepFiveB:
             stepFiveA = stepFiveA.span()[0]
-            stepFiveB = stepFour[-1:0:-1].find(">p/<")
+            # stepFiveB = stepFour[-1:0:-1].find(">p/<")
+            stepFiveB = stepFiveB.span()[0]
             stepFiveB = len(stepFour)-(stepFiveB+len(">p/<"))
             stepSix = stepFour[stepFiveA:stepFiveB].split("\n")
             for line in stepSix:
@@ -132,7 +133,7 @@ def parseHTMLFile(lines):
                     documentText.append(m[2])
             # cout("debug",f"{documentText}")
         else:
-            cout("error","Did not find the initial '<p>' tag. Time for an upgrade!")            
+            cout("error","Did not find one, either, or both of the initial '<p>' and closing </p> tags. Time for an upgrade!")
     except:
         cout("error",f"{traceback.format_exc()}")
     return documentText
@@ -146,10 +147,12 @@ def parsePDFToHTMLFile(lines):
         stepOne = stepOne.replace("<","\n<")
         stepTwo = stepOne.find("</head>\n")
         stepTwo = stepOne[stepTwo+len("</head>\n"):]
-        stepThreeA = re.search("<body[\s]*.*?>",stepTwo)
-        stepThreeB = stepTwo[-1:0:-1].find(">ydob/<")
-        if stepThreeA and stepThreeB != -1:
+        stepThreeA = re.search("<body[\s]*.*?>",stepTwo,flags=re.IGNORECASE)
+        # stepThreeB = stepTwo[-1:0:-1].find(">ydob/<")
+        stepThreeB = re.search(">ydob/<",stepTwo[-1:0:-1],flags=re.IGNORECASE)
+        if stepThreeA and stepThreeB:
             stepThreeA = stepThreeA.span()[0]
+            stepThreeB = stepThreeB.span()[0]
             stepThreeB = len(stepTwo)-(stepThreeB+len(">ydob/<"))
             stepTwo = stepTwo[stepThreeA:stepThreeB].split("\n")
             for line in stepTwo:
@@ -157,7 +160,7 @@ def parsePDFToHTMLFile(lines):
                 if m:
                     documentText.append(m[1])
         else:
-            cout("error",f"Did not find one of the 'body' tags. Locations (<body>,</body>): ({stepFiveA},{stepFiveB}). Time for an upgrade!")
+            cout("error",f"Did not find one of the 'body' tags. Locations (<body>,</body>): ({stepThreeA},{stepThreeB}). Time for an upgrade!")
     except:
         cout("error",f"{traceback.format_exc()}")
     return documentText

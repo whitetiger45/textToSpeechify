@@ -21,13 +21,17 @@ FAILED_DISPATCHES = []
 FAILED_CONVERSIONS = []
 SUCCESSFUL_DISPATCHES = 0
 
-def downloadUrl(url,outputFile="blob.tests.html"):
+def downloadUrl(url,header=None,outputFile="blob.tests.html"):
     global FAILED_DISPATCHES, SUCCESSFUL_DISPATCHES
     try:
         cout("info",f"Downloading {url}.")
         try:
-            cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
-            encoding="utf-8",errors="ignore")
+            if header:
+                cmd = check_call(["curl", "-H",f"@{header}" ,"-L", "-o", f"{outputFile}", f"{url}"],
+                encoding="utf-8",errors="ignore")
+            else:
+                cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
+                encoding="utf-8",errors="ignore")
         except:
             FAILED_DOWNLOADS.append(url)
     except:
@@ -39,8 +43,12 @@ def convertPDFToHTML(url,inputFile="blob.tests.pdf2.pdf"):
         return
     cout("info",f"Converting pdf to html")
     try:
-        cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
-            encoding="utf-8",errors="ignore")
+        if ttsh.macOS():
+            cmd = check_call(["pdftohtml", "-i", "-q", f"{inputFile}"],
+                encoding="utf-8",errors="ignore")
+        else:
+            cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
+                encoding="utf-8",errors="ignore")
     except:
         cout("error",f"{traceback.format_exc()}")
         FAILED_CONVERSIONS.append(url)
@@ -91,14 +99,24 @@ def main(in_file):
         if pdfs:
             urls = list(set(urls) - set(pdfs))
             if not ttsh.windows():
-                if ttsh.exists(ttsh.pdfToHTML) and ttsh.is_file(ttsh.pdfToHTML):
+                if ttsh.checkForPDFToHTML():
                     p = "blob.tests.pdf2"
                     for url in pdfs:
                         downloadUrl(url,outputFile=p+".pdf")
                         convertPDFToHTML(url)
-                        dispatchTextToSpeechify(url,inputFile=p+"-html.html",pdf=True)
-                    ttsh.unlink(p+"-html.html")
-                    ttsh.unlink(p+".pdf")
+                        if ttsh.macOS():
+                            dispatchTextToSpeechify(url,inputFile=p+"s.html",pdf=True)
+                            try:
+                                ttsh.unlink(p+"_ind.html")
+                            except:
+                                cout("warn",f"{traceback.format_exc()}")
+                        else:
+                            dispatchTextToSpeechify(url,inputFile=p+"-html.html",pdf=True)
+                    try:
+                        ttsh.unlink(p+"-html.html")
+                        ttsh.unlink(p+".pdf")
+                    except:
+                        cout("warn",f"{traceback.format_exc()}")
                 else:
                     cout("warn",f"Could not locate pdftotext on your system")
                     cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
@@ -110,7 +128,7 @@ def main(in_file):
                 downloadUrl(url)
                 dispatchTextToSpeechify(url)
             getTestResults(urls+pdfs)
-        else:
+        elif not pdfs:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again.")
     except:
         cout("error",f"{traceback.format_exc()}")
