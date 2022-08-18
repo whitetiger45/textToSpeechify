@@ -55,26 +55,40 @@ tag_t = {
 ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
 # these are tags that we want to avoid copying to our output file.
 skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-version = "4.0"
+version = "4.1.1"
 
 # GLOBAL FUNCTIONS #
+def checkForPDFToHTML():
+    global pdfToHTML
+    if macOS():
+        pdfToHTML = "/opt/homebrew/bin/pdftohtml"
+    return exists(pdfToHTML) and is_file(pdfToHTML)
+
 def convertPDFToHTML(inputFile=pdfBlob+".pdf"):
     cout("info",f"Converting pdf to html")
     try:
-        cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
-            encoding="utf-8",errors="ignore")
+        if macOS():
+            cmd = check_call(["pdftohtml", "-i", "-q", f"{inputFile}"],
+                encoding="utf-8",errors="ignore")
+        else:
+            cmd = check_call(["pdftohtml", "-i", "-s", "-q", f"{inputFile}"],
+                encoding="utf-8",errors="ignore")
     except:
         cout("error",f"{traceback.format_exc()}")
 
 def cout(message_type,message):
     print(f"[{cout_t[message_type]}] {message}")
 
-def downloadUrl(url,outputFile=blob):
+def downloadUrl(url,header=None,outputFile=blob):
     cout("info",f"Downloading {url}.")
 
     try:
-        cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
-            encoding="utf-8",errors="ignore")
+        if header:
+            cmd = check_call(["curl", "-H",f"@{header}" ,"-L", "-o", f"{outputFile}", f"{url}"],
+                encoding="utf-8",errors="ignore")
+        else:
+            cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
+                encoding="utf-8",errors="ignore")
     except:
         cout("error",f"{traceback.format_exc()}")
 
@@ -98,6 +112,10 @@ def dispatchTextToSpeechify(inputFile=blob,pdf=False,outputFile="output.txt"):
 
 def flatten(lines):
     return [line for lst in lines for line in lst]
+
+def macOS():
+    pltfrm = platform.system().lower()
+    return pltfrm == "darwin"
 
 def windows():
     pltfrm = platform.system().lower()

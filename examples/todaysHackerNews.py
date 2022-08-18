@@ -32,16 +32,6 @@ def getYesterdaysNews():
         cout("error",f"{traceback.format_exc()}")
     return ret
 
-def downloadUrl(url):
-    blob = "blob.html"
-    cout("info",f"Downloading {url}")
-
-    try:
-        cmd = check_call(["curl", "-L", "-o", f"{blob}", f"{url}"],
-            encoding="utf-8",errors="ignore")
-    except:
-        cout("error",f"{traceback.format_exc()}")
-
 def main():
     try:
         latestNews = []
@@ -52,8 +42,6 @@ def main():
             latestNews += ttsh.flatten(list(map((lambda line: [m.group(1) if site in m.group(1) else f"{site}{m.group(1)}" for m in grepStories(pattern,line)]),siteLandingPage)))
         yesterdaysHeadlines = getYesterdaysNews()
         latestNews = list(set(latestNews) - set(yesterdaysHeadlines))
-        # cout("debug",f"# of new articles: {len(latestNews)}")
-        # cout("debug",f"new articles: {latestNews}")
         if latestNews:
             with open(out_file, "a") as fd:
                 [ fd.write(f"{line}\n") for line in latestNews ]
