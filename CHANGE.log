@@ -1,11 +1,20 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.1.2
+Date: 2022.08.24
+
+Changes:
+    2022.08.24:
+        - Fix ".pdf" suffix check/filter bug, discovered by reading the whitepaper "Mitigating Cloud Vulnerabilities"
+        - Add file responsible for causing bug to be discovered (https://media.defense.gov/2020/Jan/22/2002237484/-1/-1/0/CSI-MITIGATING-CLOUD-VULNERABILITIES_20200121.PDF) and fixed.
+
+-------------------------
 Release: 4.1.1
 Date: 2022.08.17
 
 Changes:
     2022.08.17:
-        - small refactor of parsePDFToHTMLFile and parseHTMLFile (textToSpeechify) to search case-insensitive tags (The ONLY reason this bug was discovered was because is because Benjamin Altpeter wrote an amazing thesis paper. I highly recommend giving that a read: https://benjamin-altpeter.de/doc/thesis-electron.pdf)
+        - small refactor of parsePDFToHTMLFile and parseHTMLFile (textToSpeechify) to search case-insensitive tags (The ONLY reason this bug was discovered is because Benjamin Altpeter wrote an amazing thesis paper. I highly recommend giving that a read: https://benjamin-altpeter.de/doc/thesis-electron.pdf)
         - added the above mentioned thesis paper to list of test urls
         - patched macOS platform-specific bugs, including adding a function to check if the program is being run in a macOS and removed a cmd line option used in the call to pdftohtml on macOS
         - moved logic to check if pdftohtml exists to checkForPDFToHTML

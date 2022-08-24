@@ -23,7 +23,7 @@ def main(in_file):
             urls = [ url.strip() for url in fd.readlines() ]
         cout("success",f"# of urls read: {len(urls)}")
 
-        pdfs = list(filter((lambda url: Path(url).suffix == ".pdf"), urls))
+        pdfs = list(filter((lambda url: Path(url).suffix.lower() == ".pdf"), urls))
         if pdfs:
             urls = list(set(urls) - set(pdfs))
             if not ttsh.windows():

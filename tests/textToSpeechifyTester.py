@@ -95,7 +95,7 @@ def main(in_file):
         with open(in_file,"r") as fd:
             urls = [ url.strip() for url in fd.readlines() ]
         
-        pdfs = list(filter((lambda url: Path(url).suffix == ".pdf"), urls))
+        pdfs = list(filter((lambda url: Path(url).suffix.lower() == ".pdf"), urls))
         if pdfs:
             urls = list(set(urls) - set(pdfs))
             if not ttsh.windows():

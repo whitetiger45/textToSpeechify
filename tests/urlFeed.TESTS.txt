@@ -34,3 +34,4 @@ https://en.wikipedia.org/wiki/Stuxnet
 https://www.crowdstrike.com/cybersecurity-101/endpoint-security/edr-vs-ngav/
 https://packetstormsecurity.com/news/view/33726/Facebooks-In-App-Browser-On-iOS-Tracks-Anything-You-Do-On-Any-Website.html
 https://benjamin-altpeter.de/doc/thesis-electron.pdf
+https://media.defense.gov/2020/Jan/22/2002237484/-1/-1/0/CSI-MITIGATING-CLOUD-VULNERABILITIES_20200121.PDF
