@@ -1,5 +1,16 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.1.3
+Date: 2022.08.31
+
+Changes:
+    2022.08.31:
+        - refactor ttshelpers global variable ttsPath to utilize __loader__ attribute
+        - add __init__.py in src to textToSpeechify (for being able to import ttshelpers and it being able to load its dependencies)
+            - assumption is that textToSpeechify will always be in the same directory as ttshelpers
+        - update tests/textToSpeechifyTester.py
+
+-------------------------
 Release: 4.1.2
 Date: 2022.08.24
 

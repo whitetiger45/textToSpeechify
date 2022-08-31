@@ -6,15 +6,17 @@
 # note:
 #   this is a stable, dirty version of what is a work in progress; 
 #   as more files are consumed, it will be improved.
-import os, re, sys, traceback
-
 from pathlib import Path
 from subprocess import check_call, check_output
 
-src = list(Path(Path(os.getcwd()).parent).rglob("ttshelpers.py"))[-1].parent
-sys.path.insert(0, f"{src}")
-
-import ttshelpers as ttsh
+import os, re, sys, traceback
+src = f"{'/'.join(part for part in sys.path[0].split('/')[0:-1])}/src"
+sys.path.insert(0,src)
+try:
+    import ttshelpers as ttsh
+except:
+    print(f"[x] {traceback.format_exc()}")
+    sys.exit()
 
 FAILED_DOWNLOADS = []
 FAILED_DISPATCHES = []

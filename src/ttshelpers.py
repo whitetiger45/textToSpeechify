@@ -52,10 +52,10 @@ tag_t = {
 16:"script",
 17:"style"
 }
-ttsPath = list(cwd.parent.rglob("textToSpeechify.py"))[-1]
+ttsPath = f"{'/'.join(part for part in __loader__.path.split('/')[0:-1])}/textToSpeechify.py"
 # these are tags that we want to avoid copying to our output file.
 skip_tag_t = [tag_t[6],tag_t[7],tag_t[14],tag_t[15],tag_t[16],tag_t[17]]
-version = "4.1.1"
+version = "4.1.3"
 
 # GLOBAL FUNCTIONS #
 def checkForPDFToHTML():
