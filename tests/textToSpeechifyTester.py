@@ -9,8 +9,18 @@
 from pathlib import Path
 from subprocess import check_call, check_output
 
-import os, re, sys, traceback
-src = f"{'/'.join(part for part in sys.path[0].split('/')[0:-1])}/src"
+import os, platform, re, sys, traceback
+
+def windows():
+    pltfrm = platform.system().lower()
+    return pltfrm == "windows"
+
+src = None
+if windows():
+    src = f"{Path.cwd().parent}/src"
+else:
+    src = f"{'/'.join(part for part in sys.path[0].split('/')[0:-1])}/src"
+
 sys.path.insert(0,src)
 try:
     import ttshelpers as ttsh
