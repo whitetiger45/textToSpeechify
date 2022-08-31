@@ -16,12 +16,13 @@ def windows():
     return pltfrm == "windows"
 
 src = None
-if windows():
-    src = f"{Path.cwd().parent}/src"
+if platform.system().lower() == "windows":
+    src = list(Path(Path(os.getcwd()).parent).rglob("ttshelpers.py"))[-1].parent
+    sys.path.insert(0, f"{src}")
 else:
     src = f"{'/'.join(part for part in sys.path[0].split('/')[0:-1])}/src"
+    sys.path.insert(0,src)
 
-sys.path.insert(0,src)
 try:
     import ttshelpers as ttsh
 except:
