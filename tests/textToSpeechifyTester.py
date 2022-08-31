@@ -16,8 +16,8 @@ def windows():
     return pltfrm == "windows"
 
 src = None
-if windows():
-    src = f"{Path.cwd().parent}/src"
+if platform.system().lower() == "windows":
+    src = list(Path(Path(os.getcwd()).parent).rglob("ttshelpers.py"))[-1].parent
 else:
     src = f"{'/'.join(part for part in sys.path[0].split('/')[0:-1])}/src"
 
