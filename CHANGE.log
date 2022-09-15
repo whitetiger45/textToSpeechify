@@ -1,11 +1,40 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.2.0
+Date: 2022.09.15
+
+### Changes:
+2022.09.15:
+
+- src/ttshelpers
+    - add is_gzipped
+    - add decompress_response_if_necessary
+    - add gzip package to imports
+    - add returning of error to convertPDFToHTML, downloadUrl, and decompress_response_if_necessary for sanity check purposes to reduce uneccesary further execution on a given file if a previous step that needs to succeed has failed
+        - add userAgent to downloadUrl, '-A' (if no header file), '-s', and '--show-error' options to curl command, and user_agent_t dictionary 
+- src/textToSpeechifyDispatcher
+    - add decompress_response_if_necessary
+    - add sanity checks for early termination of transformation if a step has failed that subsequent steps rely on
+    - use ttsh.cwd global variable
+- tests/textToSpeechifyTester
+    - add decompress_response_if_necessary
+        - add sanity checks for early termination of transformation if a step has failed that subsequent steps rely on
+        - use ttsh.cwd global variable
+        - add the following urls for more robust testing (and comment out redundant output as a result of adding them)
+            - [Finding New Bluetooth Low Energy Exploits Via Reverse Engineering Multiple Vendors Firmwares](https://i.blackhat.com/USA-20/Wednesday/us-20-Kovah-Finding-New-Bluetooth-Low-Energy-Exploits-Via-Reverse-Engineering-Multiple-Vendors-Firmwares.pdf) (Black Hat '20)
+            - [A Decade After Stuxnet Printer Vulnerability Printing Is Still The Stairway To Heaven](https://i.blackhat.com/USA-20/Thursday/us-20-Hadar-A-Decade-After-Stuxnet-Printer-Vulnerability-Printing-Is-Still-The-Stairway-To-Heaven.pdf) (Black Hat '20)
+            - [Dive into VxWorks Based IoT-Device Debug the Undebugable Device](https://i.blackhat.com/asia-19/Fri-March-29/bh-asia-Zhu-Dive-into-VxWorks-Based-IoT-Device-Debug-the-Undebugable-Device.pdf) (Black Hat '19)
+            - [Spectra Breaking Separation Between Wireless Chips](https://i.blackhat.com/USA-20/Thursday/us-20-Classen-Spectra-Breaking-Separation-Between-Wireless-Chips.pdf) (Black Hat '20)
+            - [The Origin of Script Kiddie Hacker Etymology](https://liveoverflow.com/the-origin-of-script-kiddie-hacker-etymology/) (LiveOverflow)
+               - [Cunningham's Law](https://en.wikipedia.org/wiki/Ward_Cunningham#Law) (Wikipedia)
+
+-------------------------
 Release: 4.1.6
 Date: 2022.09.14
 
 Changes:
     2022.09.14:
-        - Patched a dirty file bug (textToSpeechifyDispatcher) discovered as a result of the work of LiveOverflow. In his video Discovering Vulnerabilities in Intel CPU's (​https://youtu.be/x_R1DeZxGc0) he cites the research papers [1] Foreshadow: Extracting the Keys to the Intel {SGX} Kingdom with Transient {Out-of-Order} Execution (https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-van_bulck.pdf) and [2] SPECULOSE: Analyzing the Security Implications of Speculative Execution in CPUs (https://arxiv.org/pdf/1801.04084.pdf), which led to the realization that files no longer in the urlFeed were getting written to the final output.
+        - Patched a dirty file bug (textToSpeechifyDispatcher) discovered as a result of the work of LiveOverflow. In his video Discovering Vulnerabilities in Intel CPU's (https://youtu.be/x_R1DeZxGc0) he cites the research papers [1] Foreshadow: Extracting the Keys to the Intel {SGX} Kingdom with Transient {Out-of-Order} Execution (https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-van_bulck.pdf) and [2] SPECULOSE: Analyzing the Security Implications of Speculative Execution in CPUs (https://arxiv.org/pdf/1801.04084.pdf), which led to the realization that files no longer in the urlFeed were getting written to the final output.
 
 -------------------------
 Release: 4.1.5

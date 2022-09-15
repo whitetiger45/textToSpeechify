@@ -37,3 +37,9 @@ https://benjamin-altpeter.de/doc/thesis-electron.pdf
 https://media.defense.gov/2020/Jan/22/2002237484/-1/-1/0/CSI-MITIGATING-CLOUD-VULNERABILITIES_20200121.PDF
 https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-van_bulck.pdf
 https://arxiv.org/pdf/1801.04084.pdf
+https://i.blackhat.com/USA-20/Wednesday/us-20-Kovah-Finding-New-Bluetooth-Low-Energy-Exploits-Via-Reverse-Engineering-Multiple-Vendors-Firmwares.pdf
+https://i.blackhat.com/USA-20/Thursday/us-20-Hadar-A-Decade-After-Stuxnet-Printer-Vulnerability-Printing-Is-Still-The-Stairway-To-Heaven.pdf
+https://i.blackhat.com/asia-19/Fri-March-29/bh-asia-Zhu-Dive-into-VxWorks-Based-IoT-Device-Debug-the-Undebugable-Device.pdf
+https://i.blackhat.com/USA-20/Thursday/us-20-Classen-Spectra-Breaking-Separation-Between-Wireless-Chips.pdf
+https://liveoverflow.com/the-origin-of-script-kiddie-hacker-etymology/
+https://en.wikipedia.org/wiki/Ward_Cunningham#Law

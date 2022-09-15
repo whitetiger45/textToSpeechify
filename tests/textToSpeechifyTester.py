@@ -34,8 +34,9 @@ FAILED_DISPATCHES = []
 FAILED_CONVERSIONS = []
 SUCCESSFUL_DISPATCHES = 0
 
-def downloadUrl(url,header=None,outputFile="blob.tests.html"):
+def downloadUrl(url,header=None,outputFile="blob.tests.html",userAgent=ttsh.user_agent_t[0]):
     global FAILED_DISPATCHES, SUCCESSFUL_DISPATCHES
+    error = False
     try:
         cout("info",f"Downloading {url}.")
         try:
@@ -43,18 +44,22 @@ def downloadUrl(url,header=None,outputFile="blob.tests.html"):
                 cmd = check_call(["curl", "-H",f"@{header}" ,"-L", "-o", f"{outputFile}", f"{url}"],
                 encoding="utf-8",errors="ignore")
             else:
-                cmd = check_call(["curl", "-L", "-o", f"{outputFile}", f"{url}"],
+                cmd =check_call(["curl", "-A", f"{userAgent}","-sL", "-o", f"{outputFile}", f"{url}"],
                 encoding="utf-8",errors="ignore")
         except:
             FAILED_DOWNLOADS.append(url)
+            error = True
     except:
         cout("error",f"{traceback.format_exc()}")
         FAILED_DISPATCHES.append(url)
+        error = True
+    return error
 
 def convertPDFToHTML(url,inputFile="blob.tests.pdf2.pdf"):
     if url in FAILED_DOWNLOADS:
         return
-    cout("info",f"Converting pdf to html")
+    # cout("info",f"Converting pdf to html")
+    error = False
     try:
         if ttsh.macOS():
             cmd = check_call(["pdftohtml", "-i", "-q", f"{inputFile}"],
@@ -65,12 +70,14 @@ def convertPDFToHTML(url,inputFile="blob.tests.pdf2.pdf"):
     except:
         cout("error",f"{traceback.format_exc()}")
         FAILED_CONVERSIONS.append(url)
+        error = True
+    return error
 
 def dispatchTextToSpeechify(url,inputFile="blob.tests.html",pdf=False,outputFile="output.txt"):
     global SUCCESSFUL_DISPATCHES
     if url in FAILED_DOWNLOADS or url in FAILED_CONVERSIONS:
         return
-    cout("info",f"Dispatching textToSpeechify.")
+    # cout("info",f"Dispatching textToSpeechify.")
     try:
         if not pdf:
             ret = check_output([f"{ttsh.python}", f"{ttsh.ttsPath}", "-f", 
@@ -114,19 +121,24 @@ def main(in_file):
             if not ttsh.windows():
                 if ttsh.checkForPDFToHTML():
                     p = "blob.tests.pdf2"
+                    fail = False
                     for url in pdfs:
-                        downloadUrl(url,outputFile=p+".pdf")
-                        convertPDFToHTML(url)
+                        fail = downloadUrl(url,outputFile=p+".pdf")
+                        if fail is True:
+                            continue
+                        fail = ttsh.decompress_response_if_necessary(p+".pdf")
+                        if fail is True:
+                            continue
+                        fail = convertPDFToHTML(url)
+                        if fail is True:
+                            continue
                         if ttsh.macOS():
                             dispatchTextToSpeechify(url,inputFile=p+"s.html",pdf=True)
-                            # try:
-                            #     ttsh.unlink(p+"_ind.html")
-                            # except:
-                            #     cout("warn",f"{traceback.format_exc()}")
                         else:
                             dispatchTextToSpeechify(url,inputFile=p+"-html.html",pdf=True)
                     try:
-                        list(map(ttsh.unlink,[fd for fd in list(Path(Path.cwd()).glob(f"{p}*"))]))
+                        # list(map(ttsh.unlink,[fd for fd in list(Path(Path.cwd()).glob(f"{p}*"))]))
+                        list(map(ttsh.unlink,list(ttsh.cwd.glob(f"{p}*"))))
                     except:
                         cout("warn",f"{traceback.format_exc()}")
                 else:
@@ -136,8 +148,11 @@ def main(in_file):
                 cout("warn",f"textToSpeechify does not currently support dynamic creation of text from pdfs on Windows")
                 cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
         if urls:
+            fail = False
             for url in urls:
-                downloadUrl(url)
+                fail = downloadUrl(url)
+                if fail is True:
+                    continue
                 dispatchTextToSpeechify(url)
             getTestResults(urls+pdfs)
         elif not pdfs:

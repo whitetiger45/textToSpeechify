@@ -28,19 +28,23 @@ def main(in_file):
             urls = list(set(urls) - set(pdfs))
             if not ttsh.windows():
                 if ttsh.checkForPDFToHTML():
+                    fail = False
                     for url in pdfs:
-                        ttsh.downloadUrl(url,outputFile=ttsh.pdfBlob+".pdf")
-                        ttsh.convertPDFToHTML()
+                        fail = ttsh.downloadUrl(url,outputFile=ttsh.pdfBlob+".pdf")
+                        if fail is True:
+                            continue
+                        fail = ttsh.decompress_response_if_necessary(ttsh.pdfBlob+".pdf")
+                        if fail is True:
+                            continue
+                        fail = ttsh.convertPDFToHTML()
+                        if fail is True:
+                            continue
                         if ttsh.macOS():
                             ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"s.html",pdf=True)
-                            try:
-                                ttsh.unlink(ttsh.pdfBlob+"_ind.html")
-                            except:
-                                cout("warn",f"{traceback.format_exc()}")
                         else:
                             ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"-html.html",pdf=True)
                     try:
-                        list(map(ttsh.unlink,[fd for fd in list(Path(Path.cwd()).glob(f"{ttsh.pdfBlob}*"))]))
+                        list(map(ttsh.unlink,list(ttsh.cwd.glob(f"{ttsh.pdfBlob}*"))))
                     except:
                         cout("warn",f"{traceback.format_exc()}")
                 else:
@@ -51,8 +55,11 @@ def main(in_file):
                 cout("warn",f"These files have been filtered from your urlFeed: {pdfs}")
 
         if urls:
+            fail = False
             for url in urls:
-                ttsh.downloadUrl(url)
+                fail = ttsh.downloadUrl(url)
+                if fail is True:
+                    continue
                 ttsh.dispatchTextToSpeechify()
         elif not pdfs:
             cout("info",f"Uh-oh...there was a problem. Check to make sure the urls in {in_file} are correct, then try again")
