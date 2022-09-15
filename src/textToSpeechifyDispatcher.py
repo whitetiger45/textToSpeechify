@@ -40,8 +40,7 @@ def main(in_file):
                         else:
                             ttsh.dispatchTextToSpeechify(inputFile=ttsh.pdfBlob+"-html.html",pdf=True)
                     try:
-                        ttsh.unlink(ttsh.pdfBlob+"s.html")
-                        ttsh.unlink(ttsh.pdfBlob+".pdf")
+                        list(map(ttsh.unlink,[fd for fd in list(Path(Path.cwd()).glob(f"{ttsh.pdfBlob}*"))]))
                     except:
                         cout("warn",f"{traceback.format_exc()}")
                 else:

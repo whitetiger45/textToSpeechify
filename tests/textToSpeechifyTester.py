@@ -119,15 +119,14 @@ def main(in_file):
                         convertPDFToHTML(url)
                         if ttsh.macOS():
                             dispatchTextToSpeechify(url,inputFile=p+"s.html",pdf=True)
-                            try:
-                                ttsh.unlink(p+"_ind.html")
-                            except:
-                                cout("warn",f"{traceback.format_exc()}")
+                            # try:
+                            #     ttsh.unlink(p+"_ind.html")
+                            # except:
+                            #     cout("warn",f"{traceback.format_exc()}")
                         else:
                             dispatchTextToSpeechify(url,inputFile=p+"-html.html",pdf=True)
                     try:
-                        ttsh.unlink(p+"-html.html")
-                        ttsh.unlink(p+".pdf")
+                        list(map(ttsh.unlink,[fd for fd in list(Path(Path.cwd()).glob(f"{p}*"))]))
                     except:
                         cout("warn",f"{traceback.format_exc()}")
                 else:

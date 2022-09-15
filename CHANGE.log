@@ -1,5 +1,13 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.1.6
+Date: 2022.09.14
+
+Changes:
+    2022.09.14:
+        - Patched a dirty file bug (textToSpeechifyDispatcher) discovered as a result of the work of LiveOverflow. In his video Discovering Vulnerabilities in Intel CPU's (​https://youtu.be/x_R1DeZxGc0) he cites the research papers [1] Foreshadow: Extracting the Keys to the Intel {SGX} Kingdom with Transient {Out-of-Order} Execution (https://www.usenix.org/system/files/conference/usenixsecurity18/sec18-van_bulck.pdf) and [2] SPECULOSE: Analyzing the Security Implications of Speculative Execution in CPUs (https://arxiv.org/pdf/1801.04084.pdf), which led to the realization that files no longer in the urlFeed were getting written to the final output.
+
+-------------------------
 Release: 4.1.5
 Date: 2022.08.31
 
