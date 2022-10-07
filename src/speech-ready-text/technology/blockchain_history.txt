@@ -1,0 +1,661 @@
+How to Time-Stamp a Digital Document
+Stuart Haber
+W. Scott Stornetta
+stuart@bellcore.com
+stornetta@bellcore.com
+Bellcore
+445 South Street
+Morristown, N.J. 07960-1910
+
+Abstract
+The prospect of a world in which all text, audio, picture, and video documents are in
+digital form on easily modifable media raises the issue of how to certify when a document
+was created or last changed. The problem is to time-stamp the data, not the medium. We
+propose computationally practical procedures for digital time-stamping of such documents so
+that it is infeasible for a user either to back-date or to forward-date his document, even with
+the collusion of a time-stamping service. Our procedures maintain complete privacy of the
+documents themselves, and require no record-keeping by the time-stamping service.
+Appeared, with minor editorial changes, in,Vol. 3, No. 2, pp. 99111, 1991.
+
+Journal of Cryptology
+
+Time's glory is to calm contending kings,
+To unmask falsehood, and bring truth to light,
+To stamp the seal of time in aged things,
+Towake the morn, and sentinel the night,
+To wrong the wronger till he render right.
+The Rape of Lucrece, l. 941
+
+Introduction
+
+In many situations there is a need to certify the date a documentwas created or last modified. For
+example, in intellectual property matters, it is sometimes crucial to verify the date an inventor first
+put in writing a patentable idea, in order to establish its precedence over competing claims.
+One accepted procedure for time-stamping a scientic idea involves daily notations of one's work
+in a lab notebook. The dated entries are entered one after another in the notebook, with no pages
+left blank. The sequentially numbered, sewn-in pages of the notebook make it diffcult to tamper
+with the record without leaving telltale signs. If the notebook is then stamped on a regular basis by
+a notary public or reviewed and signed by a company manager, the validity of the claim is further
+enhanced. If the precedence of the inventor's ideas is later challenged, both the physical evidence
+of the notebook and the established procedure serve to substantiate the inventor's claims of having
+had the ideas on or before a given date.
+
+There are other methods of time-stamping. For example, one can mail a letter to oneself and
+leave it unopened. This ensures that the enclosed letter was created before the time postmarked on
+the envelope. Businesses incorporate more elaborate procedures into their regular order of business
+to enhance the credibility of their internal documents, should they be challenged at a later date. For
+example, these methods may ensure that the records are handled by more than one person, so that
+any tampering with a documentby one person will be detected by another. But all these methods
+rest on two assumptions. First, the records can be examined for telltale signs of tampering. Second,
+there is another party that views the document whose integrity or impartiality is seen as vouchsang
+the claim.
+
+We believe these assumptions are called into serious question for the case of documents created
+and preserved exclusively in digital form. This is because electronic digital documents are so easy
+to tamper with, and the change needn't leaveany telltale sign on the physical medium. What is
+needed is a method of time-stamping digital documents with the following two properties. First,
+one must find a way to time-stamp the data itself, without any reliance on the characteristics of the
+medium on which the data appears, so that it is impossible to change even one bit of the document
+without the change being apparent. Second, it should be impossible to stamp a document with a
+time and date different from the actual one.
+
+The purpose of this paper is to introduce a mathematically sound and computationally practical
+solution to the time-stamping problem. In the sections that follow, we first consider a naive solution
+to the problem, the digital safety deposit box. This serves the pedagogical purpose of highlighting
+additional difficulties associated with digital time-stamping beyond those found in conventional methods of time-stamping. Successive improvements to this naive solution nally lead to practical ways to implement digital time-stamping.
+
+The Setting
+
+The setting for our problem is a distributed network of users, perhaps representing individuals,
+different companies, or divisions within a company; we will refer to the users as clients . Each client
+has a unique identication number.
+A solution to the time-stamping problem mayhave several parts. There is a procedure that is
+performed immediately when a client desires to have a document time-stamped. There should be a
+method for the clientto verify that this procedure has been correctly performed. There should also
+be a procedure for meeting a third party's challenge to the validity of a document's time-stamp.
+As with any cryptographic problem, it is a delicate matter to characterize precisely the security
+achieved by a time-stampingscheme. A good solution to the time-stampingproblem is one for which,
+under reasonable assumptions about the computational abilities of the users of the scheme and about
+the complexity of a computational problem, and possibly about the trustworthiness of the users, it is
+difficult or impossible to produce false time-stamps. Naturally, the weaker the assumptions needed,
+the better.
+
+A Naive Solution
+
+A naive solution, a digital safety-deposit box," could work as follows. Whenever a client has a
+document to be time-stamped, he or she transmits the document to a time-stamping service TSS.
+The service records the date and time the documentwas received and retains a copy of the document
+for safe-keeping. If the integrity of the client's documentis ever challenged, it can be compared to
+the copy stored by the TSS. If they are identical, this is evidence that the document has not been
+tampered with after the date contained in the TSS records. This procedure does in fact meet the
+central requirement for the time-stamping of a digital document. However, this approach raises several concerns:
+Privacy This method compromises the privacy of the documentin twoways: a third party could
+eavesdrop while the document is being transmitted, and after transmission it is available
+indenitely to the TSS itself. Thus the client has to worry not only about the securityof
+documents it keeps under its direct control, but also about the security of its documents at
+the TSS.
+
+Bandwidth and storage Both the amount of time required to send a document for time-stamping
+and the amount of storage required at the TSS depend on the length of the documenttobe
+time-stamped. Thus the time and expense required to time-stamp a large document mightbe
+prohibitive.
+
+Incompetence The TSS copy of the document could be corrupted in transmission to the TSS, it
+could be incorrectly time-stamped when it arrives at the TSS, or it could become corrupted
+The authors recently learned of a similar proposal sketched by Kanare.
+
+or lost altogether at any time while it is stored at the TSS. Any of these occurences would
+invalidate the client's time-stamping claim.
+Trust The fundamental problem remains: nothing in this scheme prevents the TSS from colluding
+with a client in order to claim to have time-stamped a document for a date and time different
+from the actual one.
+In the next section we describe a solution that addresses the first three concerns listed above.
+The nal issue, trust, will be handled separately and at greater length in the following section.
+4 ATrusted Time-Stamping Service
+In this section we assume that the TSS is trusted, and describe two improvements on the naive
+solution above.
+
+Hash
+
+Our first simplication is to make use of a family of cryptographically secure collision-free hash
+functions
+
+The practical importance of such functions has been known for some time, and researchers have used
+them in a number of schemes; Damgard gave the first formal denition,
+and a constructive proof of their existence, on the assumption that there exist one-way claw-free"
+permutations. For this, any one-way group action" is sucient.
+Naor and Yung dened the similar notion of universal one-way hash functions," which satisfy,
+in place of the second condition above, the slightly weaker requirement that it be computationally
+infeasible, given a string , to compute another string satisfying for a randomly
+chosen . They were able to construct such functions on the assumption that there exist one-to-one
+one-way functions. Rompel has recently shown that such functions exist if there exist one-way
+functions et all . See 6.3 below for a discussion of the differences between these two sorts of
+cryptographic hash functions.
+
+There are practical implementations of hash functions, for example that of Rivest, which
+seem to be reasonably secure.
+
+We will use the hash functions as follows. Instead of transmitting his document to the TSS, a
+client will send its hash value instead. For the purposes of authentication, time-stamping
+is equivalent to time-stamping . This greatly reduces the bandwidth problem and the storage
+requirements, and solves the privacy issue as well. Depending on the design goals for an implemen-
+tation of time-stamping, there may be a single hash function used byeverybody, or different hash
+functions for different users.
+
+For the rest of this paper, we will speak of time-stamping hash values random-appearing
+bit-strings of a x or'ed length. Part of the procedure for validating a time-stamp will be to produce
+the pre-image document; inability to produce suchan invalidates the putative time-stamp.
+
+Signature
+
+The second improvement makes use of digital signatures. Informally,a signature scheme is an
+algorithm for a party, the signer, to tag messages in a way that uniquely identies the signer.
+Digital signatures were proposed by Rabin and by Die and Hellman. After a long sequence
+of papers by many authors, Rompel showed that the existence of one-way functions can be used
+in order to design a signature scheme satisfying the very strong notion of security that was first
+dened by Goldwasser, Micali, and Rivest .
+
+With a secure signature scheme available, when the TSS receives the hash value, it appends the
+date and time, then signs this compound document and sends it to the client. By checking the
+signature, the client is assured that the TSS actually did process the request, that the hash was
+correctly received, and that the correct time is included. This takes care of the problem of present
+and future incompetence on the part of the TSS, and completely eliminates the need for the TSS to
+store records.
+
+Two Time-Stamping Schemes
+Sed quis custodiet ipsos Custodes?
+Juvenal, c. 100 A.D.
+But who will guard the guards themselves?
+What wehave described so far is, we believe, a practical method for time-stamping digital
+documents of arbitrary length. However, neither the signature nor the use of hash functions in
+anyway prevents a time-stamping service from issuing a false time-stamp. Ideally,wewould likea
+mechanism which guarantees that no matter how unscrupulous the TSS is, the times it certies will
+always be the correct ones, and that it will be unable to issue incorrect time-stamps even if it tries
+to. It may seem diffcult to specify a time-stamping procedure so as to make it impossible to produce
+fake time-stamps. After all, if the output of an algorithm , given as input a document and some
+timing information, is a bit-string that stands as a legitimate time-stamp for , what is
+to prevent a forger some time later from computing the same timing information and then running
+to produce the same certificate ? The question is relevanteven if is a probabilistic algorithm.
+Our task may be seen as the problem of simulating the action of a trusted TSS, in the absence
+of generally trusted parties. There are two rather different approaches we might take, and each one
+leads to a solution. The first approach is to constrain a centralized but possibly untrustworthy TSS
+to produce genuine time-stamps, in sucha way that fake ones are difficult to produce. The second
+approach is somehow to distribute the required trust among the users of the service. It is not clear
+that either of these can be done at all.
+
+Linking
+
+Our first solution begins by observing that the sequence of clients requesting time-stamps and the hashes they submit cannot be known in advance. So if we include bits from the previous sequence of client requests in the signed certificate, then we know that the time-stamp occurred after these requests. But the requirement of including bits from previous documents in the certificate also can be used to solve the problem of constraining the time in the other direction, because the time-stamping company cannot issue later certificates unless it has the current request in hand.
+
+We describe twovariants of this linking scheme; the first one, slightly simpler, highlights our main idea, while the second one may be preferable in practice. In both variants, the TSS will make use of a collision-free hash function, to be denoted . This is in addition to clients' use of hash functions in order to produce the hash value of any documents that they wish to have time-stamped.
+
+To be specic, a time-stamping request consists of an -bit string presumably the hash value of the document and a client identication number .We use to denote the signing procedure used by the TSS. The TSS issues signed, sequentially numbered time-stamp certificates .
+Having received and from the TSS, she checks that isavalid signature of a good certificate, i.e. one that is of the correct form, containing the correct time .
+If her time-stamped document is later challenged, the challenger first checks that the time-stamp is of the correct form with being a signature of a certificate that indeed contains a hash of . In order to make sure that our client has not colluded with the TSS, the challenger can call client and ask him to produce his time-stamp . This includes a signature of a certificate that contains in its linking information a copy of her hash value . This linking information is further authenticated by the inclusion of the image of her linking information . An especially suspicious challenger now can call up client and verify the next time-stamp in the sequence; this can continue for as long as the challenger wishes. Similarly, the challenger can also follow the chain of time-stamps backward, beginning with client .
+
+Why does this constrain the TSS from producing bad time-stamps? First, observe that the use of the signature has the eect that the only way to fake a time-stamp is with the collaboration of the TSS. But the TSS cannot forward-date a document, because the certificate must contain bits from
+requests that immediately preceded the desired time, yet the TSS has not received them. The TSS cannot feasibly back-date a documentby preparing a fake time-stamp for an earlier time, because bits from the document in question must be embedded in certificates immediately following that
+earlier time, yet these certificates have already been issued. Furthermore, correctly embedding a new documentinto the already-existing stream of time-stamp certificates requires the computation of a collision for the hash function .
+
+Thus the only possible spoof is to prepare a fakechain of time-stamps, long enough to exhaust
+the most suspicious challenger that one anticipates.
+In the scheme just outlined, clients must keep all their certificates. In order to relax this require-
+ment, in the second variant of this scheme we link each request not just to the next request but to
+the next requests.
+
+After checking that this client's time-stamp is of the correct form, a suspicious challenger can ask
+any one of the next clients to produce his time-stamp. As above, his time-stamp includes a signature of a certificate that contains in its linking information
+a copy of the relevant part of the challenged time-stamp certificate , authenticated by the inclusion of the hash by
+of the challenged client's linking information . His time-stamp also includes client numbers n, of which the last are new ones; the challenger can ask these clients for their
+time-stamps, and this can continue for as long as the challenger wishes.
+In addition to easing the requirement that clients save all their certificates, this second variant
+also has the property that correctly embedding a new documentinto the already-existing stream of
+time-stamp certificates requires the computation of a simultaneously -wise collision for the hash
+function , instead of just a pairwise collision.
+
+Distributed trust
+
+For this scheme, we assume that there is a secure signature scheme so that each user can sign
+messages, and that a standard secure pseudorandom generator is available to all users. A pseu-
+dorandom generator is an algorithm that stretches short input seeds to output sequences that are
+indistinguishable byany feasible algorithm from random sequences; in particular, they are unpre-
+dictable. Such generators were first studied by Blum and Micali and by Yao. Impagliazzo,
+Levin, and Lubyhave shown that they exist if there exist one-way functions.
+Once again, we consider a hash value that our clientwould like to time-stamp. She uses as
+a seed for the pseudorandom generator, whose output can be interpreted in a standard wayas a -tuple of client identication numbers:
+
+Our client sends her request toeach of these clients. She receives in return from client
+a signed message that includes the time . Her time-stamp consists of .
+The signatures can easily be checked by our clientor byawould-be challenger. No further
+communication is required in order to meet a later challenge.
+Why should such a list of signatures constitute a believable time-stamp? The reason is that
+in these circumstances, the only way to produce a time-stamped document with an incorrect time
+is to use a hash value so that   names clients that are willing to cooperate in faking the
+time-stamp. If at any time there is at most a constant fraction of possibly dishonest clients, the
+expected number of seeds that have to be tried beforefinding a tuple containing only
+collaborators from among this fraction is .Furthermore, since wehave assumed that is a ,k
+secure pseudorandom generator, there is no faster way of finding such a convenient seed than by
+choosing it at random. This ignores the adversary's further problem, in most real-world scenarios,
+of finding a plausible document that hashes to a convenientvalue .
+The parameter should be chosen when designing the system so that this is an infeasible com-
+putation. Observe that even a highly pessimistic estimate of the percentage of the client population
+that is corruptible could be 90 does not entail a prohibitively large choice of . In addition,
+the list of corruptible clients need not be xed, as long their fraction of the population never exceeds . This scheme need not use acentralized TSS at all. The onlyrequirements are thatit be possible to call up other clients at will and receive from them the required signatures, and that there be a public directory of clients so that it is possible to interpret the output of in a standard way as a tuple of clients. A practical implementation of this method would require provisions in the
+protocol for clients that cannot be contacted at the time of the time-stamping request. For example,
+for suitable , the system might accept signed responses from any of the clients named by asavalid time-stamp for in which case a greater value for the parameter would be needed in order to achieve the same low probability of finding a set of collaborators at random.
+
+Trade offs
+
+There are a number of tradeoffs between the twoschemes. The distributed-trust scheme has the
+advantage that all processing takes place when the request is made. In the linking scheme, on the
+other hand, the client has a short delay while she waits for the second part of her certificate; and
+meeting a later challenge may require further communication.
+A related disadvantage of the linking scheme is that it depends on at least some clients storing
+their certificates.
+The distributed-trust scheme makes a greater technological demand on the system: the ability
+to call up and demand a quick signed response at will.
+The linking scheme only locates the time of a documentbetween the times of the previous and
+the next requests, so it is best suited to a setting in which relatively many documents are submitted
+for time-stamping, compared to the scale at which the timing matters.
+It is worth remarking that the time-constraining properties of the linking scheme do not depend
+on the use of digital signatures.
+
+Time constraints
+We would like to point out that our schemes constrain the event of time-stamping both forward and
+backward in time. However, if any amount of time may pass between the creation of a document and
+when it is time-stamped, then no method can do more than forward-constrain the time at which the
+document itself was created. Thus, in general, time-stamping should only be considered as evidence
+that a document has not been back-dated.
+On the other hand, if the time-stamping event can be made part of the document creation
+event, then the constraint holds in both directions. For example, consider the sequence of phone
+conversations that pass through a given switch. In order to process the next call on this switch, one
+could require that linking information be provided from the previous call. Similarly, at the end of
+the call, linking information would be passed onto the next call. In this way, the document creation
+event the phone call includes a time-stamping event, and so the time of the phone call can be xed
+in both directions. The same idea could apply to sequential nancial transactions, such as stock
+trades or currency exchanges, or any sequence of electronic interactions that take place over a given
+physical connection.
+
+Theoretical considerations
+
+Although we will not do it here, we suggest that a precise complexity-theoretic denition of the
+strongest possible level of time-stamping security could be given along the lines of the denitions
+given by Goldwasser and Micali, Goldwasser, Micali, and Rivest , and Galil, Haber, and Yung
+8 for various cryptographic tasks. The time-stamping and the verication procedures would all
+depend on a security parameter . A time-stamp scheme would be polynomially secure if the success
+probability of a polynomially bounded adversary who tries to manufacture a bogus time-stamp is
+smaller than any given polynomial in 1 for suciently large .
+Under the assumption that there exist one-way claw-free permutations, we can prove our linking
+scheme to be polynomially secure. If we assume that there is always at most a constant frac-
+tion of corruptible clients, and assuming as well the existence of one-way functions and therefore
+the existence of pseudorandom generators and of a secure signature scheme, we can prove our
+distributed-trust scheme to be polynomially secure.
+In 4.1 above, we mentioned the difference between collision-free" and universal one-way"
+hash functions. The existence of one-way functions is sucient to give us universal one-way hash
+functions. However, in order to prove the security of our time-stamping schemes, we apparently
+need the stronger guarantee of the difficulty of producing hash collisions that is provided by the
+denition of collision-free hash functions. As far as is currently known, a stronger complexity
+assumption|namely, the existence of claw-free pairs of permutations|is needed in order to prove
+the existence of these functions. See also 5 and 6 for further discussion of the theoretical properties
+of cryptographic hash functions.
+Universal one-way hash functions were the tool used in order to construct a secure signature
+scheme. Our apparent need for a stronger assumption suggests a difference, perhaps an essential
+one, between signatures and time-stamps. It is in the signer's own interest to act correctly in
+following the instructions of a secure signature scheme for example, in choosing a hash function at
+random from a certain set. For time-stamping, on the other hand, a dishonest user or a colluding
+TSS may find it convenient not to follow the standard instructions for example, bychoosing a hash
+function so that collisions are easy to find; the time-stamping scheme must be devised so that there
+is nothing to be gained from such misbehavior.
+If it is possible, wewould like to reduce the assumptions we require for secure time-stamping to
+the simple assumption that one-way functions exist. This is the minimumreasonable assumption for
+us, since all of complexity-based cryptography requires the existence of one-way functions 12, 13
+
+Practical considerations
+
+As wemove from the realm of complexity theory to that of practical cryptosystems, new questions
+arise. In one sense, time-stamping places a heavier demand on presumably one-way functions than
+would some other applications. For example, if an electronic funds transfer system relies on a one-
+way function for authentication, and that function is broken, then all of the transfers carried out
+before it was broken are still valid. For time-stamps, however, if the hash function is broken, then
+all of the time-stamps issued prior to that time are called into question.
+A partial answer to this problem is provided by the observation that time-stamps can be renewed.
+Suppose wehavetwo time-stamping implementations, and that there is reason to believe that the
+first implementation will soon be broken. Then certificates issued using the old implementation can
+be renewed using the new implementation. Consider a time-stamp certificate created using the old
+implementation that is time-stamped with the new implementation before the old one is broken.
+Prior to the old implementation's breaking, the only way to create a certificate was by legitimate
+means. Thus, by time-stamping the certificate itself with the new implementation, one has evidence
+not only that the document existed prior to the time of the new time-stamp, but that it existed at
+the time stated in the original certificate.
+Another issue to consider is that producing hash collisions alone is not sucient to break the
+time-stamping scheme. Rather, meaningful documents must be found which lead to collisions. Thus,
+by specifying the format of a document class, one can complicate the task of finding meaningful
+collisions. 
+
+We leave it to future work to determine whether one can formalize the increased difficultyof
+computing collisions if valid documents are sparsely and perhaps randomly distributed in the input
+space. Similarly, the fact that a -way linking scheme requires the would-be adversary to compute
+k -way collisions rather than collision pairs may be parlayed into relaxing the requirements for the hash function. It may also be worthwhile to explore when there exist hash functions for which there are no way collisions among strings in a suitably restricted subset of the input space; the security of such a system would no longer depend on a complexity assumption.
+
+Applications
+Using the theoretically best cryptographically secure hash functions, signature schemes, and pseu-
+dorandom generators, wehave designed time-stamping schemes that possess theoretically desirable
+properties. However, wewould like to emphasize the practical nature of our suggestion: because
+there are practical implementations of these cryptographic tools, both of our time-stamp schemes
+can be inexpensively implemented as described. Practical hash functions like Rivest's are quite fast,
+even running on low-end PC's .
+What kinds of documents would benet from secure digital time-stamping? For documents that
+establish the precedence of an invention or idea, time-stamping has a clear value. A particularly
+desirable feature of digital time-stamping is that it makes it possible to establish precedence of
+intellectual property without disclosing its contents. This could have a signicant eect on copyright
+and patentlaw, and could be applied to everything from software to the secret formulafor Coca-Cola.
+But what about documents where the date is not as signicant as simply whether or not the
+document has been tampered with? These documents can benet from time-stamping, too, under
+the following circumstances. Suppose one can establish that either the necessary knowledge or the
+motivation to tamper with a document did not exist until long after the document's creation. For
+example, one can imagine a company that deals with large numbers of documents eachday, some
+few of which are later found to be incriminating. If all the company's documents were routinely
+time-stamped at the time of their creation, then by the time it became apparent which documents
+were incriminating and how they needed to be modified, it would be too late to tamper with them.
+We will call such documents tamper-unpredictable . It seems clear that many business documents are
+tamper-unpredictable. Thus, if time-stamping were to be incorporated into the established order of
+business, the credibility of many documents could be enhanced.
+Avariation that may be particularly useful for business documents is to time-stamp a log of
+documents rather than each document individually.For example, each corporate document created
+inaday could be hashed, and the hash value added to the company's daily log of documents. Then,
+at the end of the business day, the log alone could be submitted for time-stamping. This would
+eliminate the expense of time-stamping each document individually, while still making it possible to
+detect tampering with each document; one could also determine whether any documents had been
+destroyed altogether.
+Of course, digital time-stamping is not limited to text documents. Any string of bits can be
+time-stamped, including digital audio recordings, photographs, and full-motion videos. Most of
+these documents are tamper-unpredictable. Therefore, time-stamping can help to distinguish an
+original photograph from a retouched one, a problem that has received considerable attention of late
+in the popular press. It is in fact difficult to think of any other algorithmic x" that could
+add more credibility to photographs, videos, or audio recordings than time-stamping.
+
+Summary
+
+In this paper, wehave shown that the growing use of text, audio and video documents in digital
+form and the ease with which such documents can be modified creates a new problem: how can one
+certify when a documentwas created or last modified? Methods of certification, or time-stamping,
+must satisfy two criteria. First, they must time-stamp the actual bits of the document, making no
+assumptions about the physical medium on which the document is recorded. Second, the date and
+time of the time-stamp must not be forgeable.
+Wehave proposed two solutions to this problem. Both involve the use of one-way hash functions,
+whose outputs are processed in lieu of the actual documents, and of digital signatures. The solutions
+differ only in the way that the date and time are made unforgeable. In the first, the hashes of
+documents submitted to a TSS are linked together, and certificates recording the linking of a given
+document are distributed to other clients both upstream and downstream from that document. In
+the second solution, several members of the client pool must time-stamp the hash. The members
+are chosen by means of a pseudo random generator that uses the hash of the document itself as seed.
+This makes it infeasible to deliberately choose which clients should and should not time-stamp a
+given hash. The second method could be implemented without the need for a centralized TSS at
+all.Finally,we have considered whether time-stamping could be extended to enhance the authenticity
+of documents for which the time of creation itself is not the critical issue. This is the case for a large
+class of documents whichwe call tamper-unpredictable." We further conjecture that no purely
+algorithmic scheme can add any more credibility to a document than time-stamping provides.
+Acknowledgements
+We gratefully acknowledge helpful discussions with Donald Beaver, Shimon Even, George Furnas,
+Burt Kaliski, Ralph Merkle, Je Shrager, Peter Winkler, Yacov Yacobi, and Moti Yung.
+
+Bitcoin: A Peer-to-Peer Electronic Cash System
+Satoshi Nakamoto
+satoshin@gmx.com
+
+Abstract. A purely peer-to-peer version of electronic cash would allow online
+payments to be sent directly from one party to another without going through a
+financial institution. Digital signatures provide part of the solution, but the main
+benefits are lost if a trusted third party is still required to prevent double-spending.
+We propose a solution to the double-spending problem using a peer-to-peer network.
+The network timestamps transactions by hashing them into an ongoing chain of
+hash-based proof-of-work, forming a record that cannot be changed without redoing
+the proof-of-work. The longest chain not only serves as proof of the sequence of
+events witnessed, but proof that it came from the largest pool of CPU power. As
+long as a majority of CPU power is controlled by nodes that are not cooperating to
+attack the network, they'll generate the longest chain and outpace attackers. The
+network itself requires minimal structure. Messages are broadcast on a best effort
+basis, and nodes can leave and rejoin the network at will, accepting the longest
+proof-of-work chain as proof of what happened while they were gone.
+
+Introduction
+
+Commerce on the Internet has come to rely almost exclusively on financial institutions serving as
+trusted third parties to process electronic payments. While the system works well enough for
+most transactions, it still suffers from the inherent weaknesses of the trust based model.
+Completely non-reversible transactions are not really possible, since financial institutions cannot
+avoid mediating disputes. The cost of mediation increases transaction costs, limiting the
+minimum practical transaction size and cutting off the possibility for small casual transactions,
+and there is a broader cost in the loss of ability to make non-reversible payments for non-
+reversible services. With the possibility of reversal, the need for trust spreads. Merchants must
+be wary of their customers, hassling them for more information than they would otherwise need.
+A certain percentage of fraud is accepted as unavoidable. These costs and payment uncertainties
+can be avoided in person by using physical currency, but no mechanism exists to make payments
+over a communications channel without a trusted party.
+What is needed is an electronic payment system based on cryptographic proof instead of trust,
+allowing any two willing parties to transact directly with each other without the need for a trusted
+third party. Transactions that are computationally impractical to reverse would protect sellers
+from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In
+this paper, we propose a solution to the double-spending problem using a peer-to-peer distributed
+timestamp server to generate computational proof of the chronological order of transactions. The
+system is secure as long as honest nodes collectively control more CPU power than any
+cooperating group of attacker nodes.
+
+Transactions
+We define an electronic coin as a chain of digital signatures. Each owner transfers the coin to the
+next by digitally signing a hash of the previous transaction and the public key of the next owner
+and adding these to the end of the coin. A payee can verify the signatures to verify the chain of
+ownership.
+
+The problem of course is the payee can't verify that one of the owners did not double-spend
+the coin. A common solution is to introduce a trusted central authority, or mint, that checks every
+transaction for double spending. After each transaction, the coin must be returned to the mint to
+issue a new coin, and only coins issued directly from the mint are trusted not to be double-spent.
+The problem with this solution is that the fate of the entire money system depends on the
+company running the mint, with every transaction having to go through them, just like a bank.
+We need a way for the payee to know that the previous owners did not sign any earlier
+transactions. For our purposes, the earliest transaction is the one that counts, so we don't care
+about later attempts to double-spend. The only way to confirm the absence of a transaction is to
+be aware of all transactions. In the mint based model, the mint was aware of all transactions and
+decided which arrived first. To accomplish this without a trusted party, transactions must be
+publicly announced, and we need a system for participants to agree on a single history of the
+order in which they were received. The payee needs proof that at the time of each transaction, the
+majority of nodes agreed it was the first received.
+
+Timestamp Server
+The solution we propose begins with a timestamp server. A timestamp server works by taking a
+hash of a block of items to be timestamped and widely publishing the hash, such as in a
+newspaper or Usenet post. The timestamp proves that the data must have existed at the
+time, obviously, in order to get into the hash. Each timestamp includes the previous timestamp in
+its hash, forming a chain, with each additional timestamp reinforcing the ones before it.
+
+Proof-of-Work
+To implement a distributed timestamp server on a peer-to-peer basis, we will need to use a proof-
+of-work system similar to Adam Back's Hashcash [6], rather than newspaper or Usenet posts.
+The proof-of-work involves scanning for a value that when hashed, such as with SHA-256, the
+hash begins with a number of zero bits. The average work required is exponential in the number
+of zero bits required and can be verified by executing a single hash.
+For our timestamp network, we implement the proof-of-work by incrementing a nonce in the
+block until a value is found that gives the block's hash the required zero bits. Once the CPU
+effort has been expended to make it satisfy the proof-of-work, the block cannot be changed
+without redoing the work. As later blocks are chained after it, the work to change the block
+would include redoing all the blocks after it.
+
+The proof-of-work also solves the problem of determining representation in majority decision
+making. If the majority were based on one-IP-address-one-vote, it could be subverted by anyone
+able to allocate many IPs. Proof-of-work is essentially one-CPU-one-vote. The majority
+decision is represented by the longest chain, which has the greatest proof-of-work effort invested
+in it. If a majority of CPU power is controlled by honest nodes, the honest chain will grow the
+fastest and outpace any competing chains. To modify a past block, an attacker would have to
+redo the proof-of-work of the block and all blocks after it and then catch up with and surpass the
+work of the honest nodes. We will show later that the probability of a slower attacker catching up
+diminishes exponentially as subsequent blocks are added.
+To compensate for increasing hardware speed and varying interest in running nodes over time,
+the proof-of-work difficulty is determined by a moving average targeting an average number of
+blocks per hour. If they're generated too fast, the difficulty increases.
+
+Network
+The steps to run the network are as follows:
+1) New transactions are broadcast to all nodes.
+2) Each node collects new transactions into a block.
+3) Each node works on finding a difficult proof-of-work for its block.
+4) When a node finds a proof-of-work, it broadcasts the block to all nodes.
+5) Nodes accept the block only if all transactions in it are valid and not already spent.
+6) Nodes express their acceptance of the block by working on creating the next block in the
+chain, using the hash of the accepted block as the previous hash.
+Nodes always consider the longest chain to be the correct one and will keep working on
+extending it. If two nodes broadcast different versions of the next block simultaneously, some
+nodes may receive one or the other first. In that case, they work on the first one they received,
+but save the other branch in case it becomes longer. The tie will be broken when the next proof-
+of-work is found and one branch becomes longer; the nodes that were working on the other
+branch will then switch to the longer one.
+
+New transaction broadcasts do not necessarily need to reach all nodes. As long as they reach
+many nodes, they will get into a block before long. Block broadcasts are also tolerant of dropped
+messages. If a node does not receive a block, it will request it when it receives the next block and
+realizes it missed one.
+
+Incentive
+By convention, the first transaction in a block is a special transaction that starts a new coin owned
+by the creator of the block. This adds an incentive for nodes to support the network, and provides
+a way to initially distribute coins into circulation, since there is no central authority to issue them.
+The steady addition of a constant of amount of new coins is analogous to gold miners expending
+resources to add gold to circulation. In our case, it is CPU time and electricity that is expended.
+The incentive can also be funded with transaction fees. If the output value of a transaction is
+less than its input value, the difference is a transaction fee that is added to the incentive value of
+the block containing the transaction. Once a predetermined number of coins have entered
+circulation, the incentive can transition entirely to transaction fees and be completely inflation
+free.
+The incentive may help encourage nodes to stay honest. If a greedy attacker is able to
+assemble more CPU power than all the honest nodes, he would have to choose between using it
+to defraud people by stealing back his payments, or using it to generate new coins. He ought to
+find it more profitable to play by the rules, such rules that favour him with more new coins than
+everyone else combined, than to undermine the system and the validity of his own wealth.
+
+Reclaiming Disk Space
+Once the latest transaction in a coin is buried under enough blocks, the spent transactions before
+it can be discarded to save disk space. To facilitate this without breaking the block's hash,
+transactions are hashed in a Merkle Tree, with only the root included in the block's hash.
+Old blocks can then be compacted by stubbing off branches of the tree. The interior hashes do
+not need to be stored.
+
+Transactions Hashed in a Merkle Tree
+After Pruning T x zero to 2 from the Block
+A block header with no transactions would be about 80 bytes. If we suppose blocks are
+generated every 10 minutes, 80 bytes times 6 times 24 times 365 is equal to 4 point 2 M B per year. With computer systems
+typically selling with 2 G B of ram as of 2008, and Moore's Law predicting current growth of
+1 point 2 G B per year, storage should not be a problem even if the block headers must be kept in
+memory.
+
+Simplified Payment Verification
+It is possible to verify payments without running a full network node. A user only needs to keep
+a copy of the block headers of the longest proof-of-work chain, which he can get by querying
+network nodes until he's convinced he has the longest chain, and obtain the Merkle branch
+linking the transaction to the block it's timestamped in. He can't check the transaction for
+himself, but by linking it to a place in the chain, he can see that a network node has accepted it,
+and blocks added after it further confirm the network has accepted it.
+
+As such, the verification is reliable as long as honest nodes control the network, but is more
+vulnerable if the network is overpowered by an attacker. While network nodes can verify
+transactions for themselves, the simplified method can be fooled by an attacker's fabricated
+transactions for as long as the attacker can continue to overpower the network. One strategy to
+protect against this would be to accept alerts from network nodes when they detect an invalid
+block, prompting the user's software to download the full block and alerted transactions to
+confirm the inconsistency. Businesses that receive frequent payments will probably still want to
+run their own nodes for more independent security and quicker verification.
+
+Combining and Splitting Value
+Although it would be possible to handle coins individually, it would be unwieldy to make a
+separate transaction for every cent in a transfer. To allow value to be split and combined,
+transactions contain multiple inputs and outputs. Normally there will be either a single input
+from a larger previous transaction or multiple inputs combining smaller amounts, and at most two
+outputs: one for the payment, and one returning the change, if any, back to the sender.
+
+It should be noted that fan-out, where a transaction depends on several transactions, and those
+transactions depend on many more, is not a problem here. There is never the need to extract a
+complete standalone copy of a transaction's history.
+
+Privacy
+The traditional banking model achieves a level of privacy by limiting access to information to the
+parties involved and the trusted third party. The necessity to announce all transactions publicly
+precludes this method, but privacy can still be maintained by breaking the flow of information in
+another place: by keeping public keys anonymous. The public can see that someone is sending
+an amount to someone else, but without information linking the transaction to anyone. This is
+similar to the level of information released by stock exchanges, where the time and size of
+individual trades, the "tape", is made public, but without telling who the parties were.
+Traditional Privacy Model
+Identities
+Transactions
+Trusted
+Counterparty
+Public
+Third Party
+New Privacy Model
+Identities
+Transactions
+Public
+As an additional firewall, a new key pair should be used for each transaction to keep them
+from being linked to a common owner. Some linking is still unavoidable with multi-input
+transactions, which necessarily reveal that their inputs were owned by the same owner. The risk
+is that if the owner of a key is revealed, linking could reveal other transactions that belonged to
+the same owner.
+
+Calculations
+We consider the scenario of an attacker trying to generate an alternate chain faster than the honest
+chain. Even if this is accomplished, it does not throw the system open to arbitrary changes, such
+as creating value out of thin air or taking money that never belonged to the attacker. Nodes are
+not going to accept an invalid transaction as payment, and honest nodes will never accept a block
+containing them. An attacker can only try to change one of his own transactions to take back
+money he recently spent.
+The race between the honest chain and an attacker chain can be characterized as a Binomial
+Random Walk. The success event is the honest chain being extended by one block, increasing its
+lead by +1, and the failure event is the attacker's chain being extended by one block, reducing the
+gap by -1.
+The probability of an attacker catching up from a given deficit is analogous to a Gambler's
+Ruin problem. Suppose a gambler with unlimited credit starts at a deficit and plays potentially an
+infinite number of trials to try to reach breakeven. We can calculate the probability he ever
+reaches breakeven, or that an attacker ever catches up with the honest chain, as follows:
+p is equal to the probability an honest node finds the next block
+q is equal to the probability the attacker finds the next block
+
+z is equal to the probability the attacker will ever catch up from z blocks behind
+
+Given our assumption that p greater than q, the probability drops exponentially as the number of blocks the
+attacker has to catch up with increases. With the odds against him, if he doesn't make a lucky
+lunge forward early on, his chances become vanishingly small as he falls further behind.
+We now consider how long the recipient of a new transaction needs to wait before being
+sufficiently certain the sender can't change the transaction. We assume the sender is an attacker
+who wants to make the recipient believe he paid him for a while, then switch it to pay back to
+himself after some time has passed. The receiver will be alerted when that happens, but the
+sender hopes it will be too late.
+The receiver generates a new key pair and gives the public key to the sender shortly before
+signing. This prevents the sender from preparing a chain of blocks ahead of time by working on
+it continuously until he is lucky enough to get far enough ahead, then executing the transaction at
+that moment. Once the transaction is sent, the dishonest sender starts working in secret on a
+parallel chain containing an alternate version of his transaction.
+The recipient waits until the transaction has been added to a block and z blocks have been
+linked after it. He doesn't know the exact amount of progress the attacker has made, but
+assuming the honest blocks took the average expected time per block, the attacker's potential
+progress will be a Poisson distribution with expected value
+
+To get the probability the attacker could still catch up now, we multiply the Poisson density for
+each amount of progress he could have made by the probability he could catch up from that point:
+
+Rearranging to avoid summing the infinite tail of the distribution
+
+Running some results, we can see the probability drop off exponentially with z.
+
+Conclusion
+
+We have proposed a system for electronic transactions without relying on trust. We started with
+the usual framework of coins made from digital signatures, which provides strong control of
+ownership, but is incomplete without a way to prevent double-spending. To solve this, we
+proposed a peer-to-peer network using proof-of-work to record a public history of transactions
+that quickly becomes computationally impractical for an attacker to change if honest nodes
+control a majority of CPU power. The network is robust in its unstructured simplicity. Nodes
+work all at once with little coordination. They do not need to be identified, since messages are
+not routed to any particular place and only need to be delivered on a best effort basis. Nodes can
+leave and rejoin the network at will, accepting the proof-of-work chain as proof of what
+happened while they were gone. They vote with their CPU power, expressing their acceptance of
+valid blocks by working on extending them and rejecting invalid blocks by refusing to work on
+them. Any needed rules and incentives can be enforced with this consensus mechanism.
