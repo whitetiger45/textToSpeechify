@@ -130,8 +130,17 @@ def parseHTMLFile(lines):
             for line in stepSix:
                 m = stripTagL(line)
                 if m and m[1] not in ttsh.skip_tag_t:
-                    documentText.append(m[2])
-            # cout("debug",f"{documentText}")
+                    documentText.append(m[2])            
+        elif stepFour or stepOne:
+            try:
+                if stepFour:
+                    cout("debug","sending stepFour to second_pass")
+                    documentText = second_pass( stepFour )
+                else:
+                    cout("debug","sending stepOne to second_pass")
+                    documentText = second_pass( stepOne )
+            except:
+                cout("error","second_pass failure using either stepFour or stepOne")
         else:
             cout("error","Did not find one, either, or both of the initial '<p>' and closing </p> tags. Time for an upgrade!")
     except:
@@ -186,6 +195,13 @@ def saveParsedFile(state):
     except:
         cout("error",f"{traceback.format_exc()}")
         STATUS = ttsh.NOT_SERIOUS
+
+def second_pass(s):
+  x = list(re.finditer("<",s))
+  for i in x[::-1]:    
+    y = re.search(">",s[i.span()[0]:]).span()[1]+i.span()[0]
+    s = s[0:i.span()[0]] + s[y:]
+  return s.split("\n") 
 
 def main(argv):
     global STATUS

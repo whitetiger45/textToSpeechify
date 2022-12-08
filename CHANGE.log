@@ -1,5 +1,43 @@
 textToSpeechify Change Tracker:
 -------------------------
+Release: 4.3.0
+Date: 2022.12.08
+
+### Changes
+2022.12.08:
+- src/textToSpeechify
+    - add second_pass method for html files that do not conform to the HTML standard (missing closing tags, etc.)
+- tests/textToSpeechifyTester
+    - add the following urls to list of resources used to test for regressions
+        - Linux Kernel Online Book, By David A. Rusling
+            - Preface [html](http://www.tldp.org/LDP/tlk/intro/preface.html)
+            - Hardware Basics [html](http://www.tldp.org/LDP/tlk/basics/hw.html)
+            - Software Basics [html](http://www.tldp.org/LDP/tlk/basics/sw.html)
+            - Memory Management [html](http://www.tldp.org/LDP/tlk/mm/memory.html)
+            - Processes [html](http://www.tldp.org/LDP/tlk/kernel/processes.html)
+            - Interprocess Communication Mechanisms [html](http://www.tldp.org/LDP/tlk/ipc/ipc.html)
+            - Peripheral Component Interconnect (PCI) [html](http://www.tldp.org/LDP/tlk/dd/pci.html)
+            - Interrupts and Interrupt Handling [html](http://www.tldp.org/LDP/tlk/dd/interrupts.html)
+            - Device Drivers [html](http://www.tldp.org/LDP/tlk/dd/drivers.html)
+            - The File system [html](http://www.tldp.org/LDP/tlk/fs/filesystem.html)
+            - Networks [html](http://www.tldp.org/LDP/tlk/net/net.html)
+            - Kernel Mechanisms [html](http://www.tldp.org/LDP/tlk/kernel/kernel.html)
+            - Modules [html](http://www.tldp.org/LDP/tlk/modules/modules.html)
+            - Processors [html](http://www.tldp.org/LDP/tlk/processors/processors.html)
+            - The Linux Kernel Sources [html](http://www.tldp.org/LDP/tlk/sources/sources.html)
+            - Linux Data Structures [html](http://www.tldp.org/LDP/tlk/ds/ds.html)        
+        - The VirusTotal Blog [html](https://blog.virustotal.com)
+            - [Not a dream job: Hunting for malicious job offers from an APT](https://blog.virustotal.com/2022/11/not-dream-job-hunting-for-malicious-job.html)
+        - Red/Black Tree Demonstration [html](http://gauss.ececs.uc.edu/RedBlack/redblack.html)
+            - View Source (Note: HTML stored only for educational [PoC](https://github.com/whitetiger45/textToSpeechify/src/html/redBlackTreeDemo.html))
+        - University of Cincinnati Faculty Staff Directory [pdf](https://ucdirectory.uc.edu/FSDirectoryFiles/FacultyStaff_Directory.pdf)
+        - University of Cincinnati Malware Class [html](https://blog.malware.re/)
+            - coleman's random musings [html](https://blog.malware.re/2019/07/04/jmp-0x7c0-begin/index.html)
+                - DerbyCon Cyber Intelligence Talk (2018) [YouTube](https://www.youtube.com/watch?v=lIVt5go6Pbw)
+        - The Future of Intelligent Binary Parsing, by elfmaster [pdf](https://github.com/elfmaster/libelfmaster/raw/master/libelfmaster_talk_hushcon.pdf)
+        - Towards a Common Enumeration of Vulnerabilities by David E. Mann & Steven M. Christey of The MITRE Corporation [pdf](https://www.cve.org/Resources/General/Towards-a-Common-Enumeration-of-Vulnerabilities.pdf)
+ 
+-------------------------
 Release: 4.2.0
 Date: 2022.09.15
 
